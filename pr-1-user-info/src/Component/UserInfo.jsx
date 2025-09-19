@@ -17,8 +17,8 @@ class UserInfo extends React.Component {
           <h3 className="work">Occupation:{this.props.occupation}</h3>
 
           <p><strong>Email:</strong> {this.props.email}</p>
-          <p><strong>City:</strong> {this.props.city}</p>
           <p><strong>Age:</strong> {this.props.age}</p>
+          <p><strong>Address:</strong> {this.props.address}</p>
         </div>
       </div>
 
