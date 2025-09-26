@@ -1,50 +1,97 @@
-import { useState } from 'react'
-import './Calculetor.css'
+import { useState } from "react";
+import "./Calculetor.css";
 
-const Calculetor = ()=> {
-const [input,setInput] = useState(0)
+const Calculetor = () => {
+  const [input, setInput] = useState("");
 
-const handalclick = (value)=>{
-console.log(value)
-setInput(()=>input+value)
-}
+  const handalclick = (value) => {
+    setInput(() => input + value);
+    console.log(input);
+  };
+
+  const handalSighn = (value) => {
+    setInput(() => input + value);
+  };
+
+  const handalAllclear = () => {
+    setInput("");
+  };
+
+  const handalClear = () => {
+    setInput(input.slice(0, -1));
+  };
+
+  const handalCalculation = () => {
+    if (input == "") {
+      alert("Enter Value");
+    } else {
+      let safeInput = input.replace(/\b0+(\d)/g, "$1"); 
+      setInput(String(eval(safeInput)));
+    }
+  };
+
   return (
     <>
-  <div className="calculetor">
-      <div class="calculator-item">
-    <div class="brand">Citizen</div>
-    <div class="display" id="display">
-      <input type="text" />
-    </div>
-    <div class="buttons">
-      <button class="btn-gray">AC</button>
-      <button class="btn-gray">C</button>
-      <button class="btn-gray">%</button>
-      <button class="btn-orange">÷</button>
+      <div className="calculetor">
+        <div className="calculator-item">
+          <div className="brand">Citizen</div>
+          <div className="display" id="display">
+            <input
+              type="text"
+              value={input}
+              name="input"
+              placeholder="0"
+              onChange={(e) => setDisplay(e.target.value)}
+              readOnly
+            />
+          </div>
+          <div className="buttons">
+            <button className="btn-gray" onClick={handalAllclear}>
+              AC
+            </button>
+            <button className="btn-gray" onClick={handalClear}>
+              C
+            </button>
+            <button className="btn-gray" onClick={() => handalSighn("%")}>
+              %
+            </button>
+            <button className="btn-orange" onClick={() => handalSighn("/")}>
+              ÷
+            </button>
 
-      <button onClick={()=>handalclick("7")}>7</button>
-      <button onClick={()=>handalclick("8")}>8</button>
-      <button onClick={()=>handalclick("9")}>9</button>
-      <button class="btn-orange">×</button>
+            <button onClick={() => handalclick("7")}>7</button>
+            <button onClick={() => handalclick("8")}>8</button>
+            <button onClick={() => handalclick("9")}>9</button>
+            <button className="btn-orange" onClick={() => handalSighn("*")}>
+              ×
+            </button>
 
-      <button onClick={()=>handalclick("4")}>4</button>
-      <button onClick={()=>handalclick("5")}>5</button>
-      <button onClick={()=>handalclick("6")}>6</button>
-      <button class="btn-orange">−</button>
+            <button onClick={() => handalclick("4")}>4</button>
+            <button onClick={() => handalclick("5")}>5</button>
+            <button onClick={() => handalclick("6")}>6</button>
+            <button className="btn-orange" onClick={() => handalSighn("-")}>
+              −
+            </button>
 
-      <button onClick={()=>handalclick("1")}>1</button>
-      <button onClick={()=>handalclick("2")}>2</button>
-      <button onClick={()=>handalclick("3")}>3</button>
-      <button class="btn-orange">+</button>
+            <button onClick={() => handalclick("1")}>1</button>
+            <button onClick={() => handalclick("2")}>2</button>
+            <button onClick={() => handalclick("3")}>3</button>
+            <button className="btn-orange" onClick={() => handalSighn("+")}>
+              +
+            </button>
 
-      <button class="span-two" onClick={()=>handalclick("0")} >0</button>
-      <button onClick={()=>handalclick(".")}>.</button>
-      <button class="btn-green">=</button>
-    </div>
-  </div>
-  </div>
+            <button className="span-two" onClick={() => handalclick("0")}>
+              0
+            </button>
+            <button onClick={() => handalclick(".")}>.</button>
+            <button className="btn-green" onClick={handalCalculation}>
+              =
+            </button>
+          </div>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Calculetor
+export default Calculetor;
