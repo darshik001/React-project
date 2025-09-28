@@ -6,7 +6,6 @@ const Calculetor = () => {
 
   const handalclick = (value) => {
     setInput(() => input + value);
-    console.log(input);
   };
 
   const handalSighn = (value) => {
@@ -41,7 +40,7 @@ const Calculetor = () => {
               value={input}
               name="input"
               placeholder="0"
-              onChange={(e) => setDisplay(e.target.value)}
+              
               readOnly
             />
           </div>
@@ -50,33 +49,33 @@ const Calculetor = () => {
               AC
             </button>
             <button className="btn-gray" onClick={handalClear}>
-              C
+              &larr;
             </button>
             <button className="btn-gray" onClick={() => handalSighn("%")}>
               %
             </button>
-            <button className="btn-orange" onClick={() => handalSighn("/")}>
+            <button className="btn-operator " onClick={() => handalSighn("/")}>
               ÷
             </button>
 
             <button onClick={() => handalclick("7")}>7</button>
             <button onClick={() => handalclick("8")}>8</button>
             <button onClick={() => handalclick("9")}>9</button>
-            <button className="btn-orange" onClick={() => handalSighn("*")}>
-              ×
+            <button className="btn-operator " onClick={() => handalSighn("*")}>
+              x
             </button>
 
             <button onClick={() => handalclick("4")}>4</button>
             <button onClick={() => handalclick("5")}>5</button>
             <button onClick={() => handalclick("6")}>6</button>
-            <button className="btn-orange" onClick={() => handalSighn("-")}>
-              −
+            <button className="btn-operator " onClick={() => handalSighn("-")}>
+              -
             </button>
 
             <button onClick={() => handalclick("1")}>1</button>
             <button onClick={() => handalclick("2")}>2</button>
             <button onClick={() => handalclick("3")}>3</button>
-            <button className="btn-orange" onClick={() => handalSighn("+")}>
+            <button className="btn-operator" onClick={() => handalSighn("+")}>
               +
             </button>
 
@@ -84,7 +83,7 @@ const Calculetor = () => {
               0
             </button>
             <button onClick={() => handalclick(".")}>.</button>
-            <button className="btn-green" onClick={handalCalculation}>
+            <button className="btn-operator " onClick={handalCalculation}>
               =
             </button>
           </div>

@@ -1,4 +1,3 @@
-import './App.css'
 import Calculetor from './Components/Calculetor'
 
 function App() {
