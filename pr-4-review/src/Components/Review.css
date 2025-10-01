@@ -1,0 +1,36 @@
+.main-form{
+  display: flex;
+  justify-content: center;
+}
+
+.from-hading{
+  text-align: center;
+  margin-top: 100px;
+}
+.form{
+  width: fit-content;
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+
+.form-input{
+  margin-top: 20px;
+
+  input,textarea{
+    background-color: black;
+    border:1px solid white;
+    color: white;
+    padding: 5px;
+    font-size: 20px; ;
+    margin-top: 5px;
+  }
+}
+
+
+.form-rating{
+  margin-top: 20px;
+}
+
+
+
