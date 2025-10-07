@@ -1,36 +1,104 @@
-.main-form{
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #232526, #414345);
+  min-height: 100vh;
+  margin: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
 }
 
-.from-hading{
-  text-align: center;
-  margin-top: 100px;
-}
-.form{
-  width: fit-content;
-  background-color: black;
-  color: white;
+.main-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
-.form-input{
-  margin-top: 20px;
-
-  input,textarea{
-    background-color: black;
-    border:1px solid white;
-    color: white;
-    padding: 5px;
-    font-size: 20px; ;
-    margin-top: 5px;
-  }
+.review-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 400px;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+.review-card h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #ffd700;
+}
 
-.form-rating{
+.form-input {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-input input,
+.form-input textarea {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  outline: none;
+}
+
+.form-input input::placeholder,
+.form-input textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-input input:focus,
+.form-input textarea:focus {
+  border-color: #ff9f43;
+  box-shadow: 0 0 6px #ff9f43;
+}
+
+.form-rating {
   margin-top: 20px;
 }
 
+.stars span {
+  transition: transform 0.2s, color 0.3s;
+}
 
+.stars span:hover {
+  transform: scale(1.2);
+  color: #ffd700 !important;
+}
 
+button {
+  width: 100%;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #ff9f43, #ff3cac);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 99, 132, 0.4);
+}
+
+.errors {
+  color: #ff8080;
+  font-size: 13px;
+  margin-top: 5px;
+}
