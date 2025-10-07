@@ -21,12 +21,27 @@ const Calculetor = () => {
   };
 
   const handalCalculation = () => {
-    if (input == "") {
-      alert("Enter Value");
+     if (input === "") {
+    alert("Enter Value");
+    return;
+  }
+
+  try {
+   let checkInput = input.replace(/\b0+(\d)/g, "$1").split("%").join("/100");
+
+    let result = eval(checkInput);
+     result = result.toFixed(2)
+
+    if (!isFinite(result)) {
+      alert("Invalid Calculation");
+      setInput("");
     } else {
-      let safeInput = input.replace(/\b0+(\d)/g, "$1"); 
-      setInput(String(eval(safeInput)));
+      setInput(String(result));
     }
+  } catch (error) {
+    alert("Invalid Input");
+    setInput("");
+  }
   };
 
   return (
