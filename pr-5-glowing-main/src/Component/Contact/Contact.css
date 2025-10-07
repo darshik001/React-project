@@ -1,0 +1,12 @@
+
+
+.text-color{
+  color: #7E7E7E;
+  font-size: 15px;
+  padding: px;
+}
+
+.heding{
+  font-weight: var(--urbanist-weight-bold);
+  font-size: 20px;
+}
