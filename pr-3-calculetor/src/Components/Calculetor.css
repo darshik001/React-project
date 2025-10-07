@@ -75,7 +75,6 @@ button:active {
   transform: translateY(2px);
 }
 
-/* Operator buttons (+ - × ÷) */
 .btn-operator {
   background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
   color: #00ff88;
@@ -87,7 +86,6 @@ button:active {
   box-shadow: 0 0 12px rgba(0, 255, 128, 0.6);
 }
 
-/* Equal button (=) */
 .btn-equal {
   background: linear-gradient(145deg, #00b35a, #008f46);
   color: #fff;
@@ -104,7 +102,6 @@ button:active {
   background: linear-gradient(145deg, #666, #444);
 }
 
-/* Wide button (like 0) */
-.span-two {
+.btn-two{
   grid-column: span 2;
 }

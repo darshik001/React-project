@@ -94,7 +94,7 @@ const Calculetor = () => {
               +
             </button>
 
-            <button className="span-two" onClick={() => handalclick("0")}>
+            <button className="btn-two" onClick={() => handalclick("0")}>
               0
             </button>
             <button onClick={() => handalclick(".")}>.</button>
