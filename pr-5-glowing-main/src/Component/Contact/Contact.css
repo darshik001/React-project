@@ -2,11 +2,23 @@
 
 .text-color{
   color: #7E7E7E;
-  font-size: 15px;
-  padding: px;
 }
 
-.heding{
-  font-weight: var(--urbanist-weight-bold);
-  font-size: 20px;
+.text-body-color{
+  color: #7E7E7E !important;
+font-size: 15px;
 }
+
+.under-line{
+  position: relative;
+}
+.under-line::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  bottom: -5px;
+}
+
+
