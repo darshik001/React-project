@@ -2,6 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { CiLocationOn, CiClock2 } from "react-icons/ci";
 import { PiPhoneCallLight } from "react-icons/pi";
 import './Contact.css'
+import Location from '../ContactLocation/Location';
 const Contact = () => {
   return (
     <>
@@ -63,6 +64,10 @@ const Contact = () => {
             </Row>
           </Col>
         </Row>
+
+        <div>
+          <Location/>
+        </div>
       </Container>
 
     </>
