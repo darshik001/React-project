@@ -1,3 +1,19 @@
+
+.location-main{
+  min-height: 500px;
+  cursor:grab;
+}
+
+.location-item-1{
+  right: 35%;
+  top: 10%;
+}
+
+.location-item-2{
+  left: 35%;
+  bottom: 10%;
+}
+
 .image-animation {
   position: relative;
   display: inline-block;
@@ -10,7 +26,6 @@
   box-shadow: 0px 0px 200px white;
 }
 
-/* Common styles for ::before & ::after */
 
 .image-animation::after,.image-animation::before {
   content: "";
@@ -35,17 +50,34 @@
   height: 400px !important;
 }
 
+.location-item-3{
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  right: 0%;
+ 
+}
 
-/* 🔥 Animation Keyframes */
+
+.location-item-3 button{
+  background-color: white !important;
+  color: black;
+  border: 1px solid rgba(128, 128, 128, 0.46); 
+  padding: 0px 3px;
+  font-size: 14px;
+}
+.location-item-3 button:hover{
+  border: 1px solid rgba(128, 128, 128, 0.46); 
+  color: black;
+  background-color: rgba(128, 128, 128, 0.167)!important;
+}
 @keyframes spread {
   0% {
     width: 0;
     height: 0;
     opacity: 0.8;
   }
-  /* 70% {
-    opacity: 0.2;
-  } */
+
   100% {
     width: 200px;
     height: 200px;

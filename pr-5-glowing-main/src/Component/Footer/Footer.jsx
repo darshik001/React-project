@@ -16,15 +16,15 @@ import discover from './Icons/discover.svg'
 const Footer = () => {
   return (
        <footer className="bg-light text-dark py-5 px-4">
-        <Row>
-          <Col md={2} className="mb-4">
+        <Row className="px-5 px-lg-0">
+          <Col sm={6}lg={4} xl={3}  className="mb-4 pe-5 ">
             <h5>Company</h5>
-            <p>Find a location nearest you. See <strong>Our Stores</strong></p>
+            <p className="pe-5">Find a location nearest you. See <strong>Our Stores</strong></p>
             <p><strong>+391 (0)35 2568 4593</strong></p>
             <p>hello@domain.com</p>
           </Col>
 
-          <Col md={2} className="mb-4">
+          <Col sm={6}  lg={4} xl={3} className="mb-4">
             <h5>Useful Links</h5>
             <ul className="list-unstyled">
               <li>New Products</li>
@@ -34,7 +34,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col md={2} className="mb-4">
+          <Col  sm={6}  lg={4} xl={3} className="mb-4">
             <h5>Information</h5>
             <ul className="list-unstyled">
               <li>Start A Return</li>
@@ -45,7 +45,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col md={5} className="mb-4">
+          <Col xs={12} sm={6}  xl={3} className="mb-4">
             <h5>Good emails.</h5>
             <p>Enter your email below to be the first to know about new collections and product launches.</p>
             <InputGroup className="mb-3">

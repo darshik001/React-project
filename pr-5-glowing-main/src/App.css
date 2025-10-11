@@ -5,3 +5,9 @@
   --urbanist-weight-medium: 500;
   --urbanist-weight-bold: 600;
 } */
+
+*{
+  font-size: 14px;
+   color: #7E7E7E;
+
+}
