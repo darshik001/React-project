@@ -63,7 +63,7 @@
   background-color: white !important;
   color: black;
   border: 1px solid rgba(128, 128, 128, 0.46); 
-  padding: 0px 3px;
+  padding: 6px 6px;
   font-size: 14px;
 }
 .location-item-3 button:hover{
@@ -71,6 +71,10 @@
   color: black;
   background-color: rgba(128, 128, 128, 0.167)!important;
 }
+
+
+
+
 @keyframes spread {
   0% {
     width: 0;

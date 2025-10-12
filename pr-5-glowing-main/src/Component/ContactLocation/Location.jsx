@@ -1,6 +1,5 @@
-import { Button, InputGroup } from 'react-bootstrap';
-import { FaMinus,FaRegCompass ,FaCompass  } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { Button, ButtonGroup } from 'react-bootstrap';
+import {  FaPlus, FaMinus ,FaCompass  } from "react-icons/fa";
 import locationImg from '../../assets/marker.webp'
 import './location.css'
 const Location = () => {
@@ -20,11 +19,17 @@ const Location = () => {
         </div>
 
      <div className='location-item-3'>
-  <InputGroup className='flex-column'>
-    <Button className=' rounded-0'><FaPlus /></Button>
-    <Button className=''><FaMinus /></Button>
-    <Button className='rounded-0'><FaCompass /></Button>
-  </InputGroup>
+   <ButtonGroup vertical>
+        <Button variant="light" className="control-btn">
+          <FaPlus />
+        </Button>
+        <Button variant="light" className="control-btn">
+          <FaMinus />
+        </Button>
+        <Button variant="light" className="control-btn">
+          <FaCompass />
+        </Button>
+      </ButtonGroup>
 </div>
 
       </div>

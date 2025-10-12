@@ -8,8 +8,8 @@ function App() {
   return (
     <>
     <Header/>
-     <Contact/>
-     <Footer/>
+    <Contact/>
+    <Footer/>
     </>
   )
 }

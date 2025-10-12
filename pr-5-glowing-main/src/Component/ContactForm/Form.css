@@ -11,7 +11,7 @@
 }
 
 
-button:hover{
+button:hover,button:focus{
 background-color: #4e7661 !important;
-border: none;
+ border: 1px solid transparent !important;
 }
