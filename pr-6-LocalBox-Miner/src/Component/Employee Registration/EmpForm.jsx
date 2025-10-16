@@ -50,6 +50,7 @@ const handalchange = (e)=>{
    setInputForm({
     ...inputForm,
     [name]:value
+    
    })
 }
 
