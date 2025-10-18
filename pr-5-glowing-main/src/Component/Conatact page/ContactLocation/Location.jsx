@@ -1,6 +1,7 @@
 import { Button, ButtonGroup } from 'react-bootstrap';
 import {  FaPlus, FaMinus ,FaCompass  } from "react-icons/fa";
-import locationImg from '../../assets/marker.webp'
+// import locationImg from '../../assets/marker.webp'
+import locationImg from '../../../assets/marker.webp'
 import './location.css'
 const Location = () => {
   return (
