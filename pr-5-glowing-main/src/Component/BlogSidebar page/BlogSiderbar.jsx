@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import "./news.css";
-import PaginationBasic from './pagination/Pagination';
 const articles = [
   {
     id: 1,
@@ -182,7 +181,6 @@ const BlogSiderbar = () => {
             ))}
           </Row>
         </Col>
-      <PaginationBasic/>
 
       </Row>
     </Container>

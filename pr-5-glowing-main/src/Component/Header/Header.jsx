@@ -5,7 +5,9 @@ import { Navbar, Container, Nav, NavDropdown, Badge, Button, Offcanvas, Row, Col
 import { FaSearch, FaUser, FaStar, FaShoppingCart, FaBars, FaChevronRight, FaInstagram, FaFacebook, FaYoutube, } from 'react-icons/fa';
 
 import { FaXTwitter } from "react-icons/fa6";
-import Logo from '../../assets/logo-dark.png'
+// import Logo from '../../assets/logo-dark.png'
+import Logo from '../../assets/about image/logo-dark.png'
+import { Link } from 'react-router';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -31,7 +33,7 @@ const Header = () => {
             </Button>
 
             <Nav className="d-none d-xl-flex gap-4 text-dark">
-              <Nav.Link href="#home" className="text-black">HOME</Nav.Link>
+              <Nav.Link as={Link} to={'/'} className="text-black">HOME</Nav.Link>
 
               {/* SHOP Dropdown */}
               <NavDropdown
@@ -42,10 +44,10 @@ const Header = () => {
                 onMouseLeave={() => setShopOpen(false)}
                 onClick={() => setShopOpen(!shopOpen)}
               >
-                <NavDropdown.Item href="#shop/men">Left Sidebar</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/leftslider">Left Sidebar</NavDropdown.Item>
               </NavDropdown>
 
-              <Nav.Link href="#product" className="text-black">PRODUCT</Nav.Link>
+              <Nav.Link as={Link} to='/product' className="text-black">PRODUCT</Nav.Link>
 
               {/* PAGES Dropdown */}
               <NavDropdown
@@ -56,9 +58,9 @@ const Header = () => {
                 onMouseLeave={() => setPagesOpen(false)}
                 onClick={() => setPagesOpen(!pagesOpen)}
               >
-                <NavDropdown.Item href="#pages/about">About Us</NavDropdown.Item>
-                <NavDropdown.Item href="#pages/contact">Contact</NavDropdown.Item>
-                <NavDropdown.Item href="#pages/faq">FAQ</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/aboutus">About Us</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/contact">Contact</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/faq">FAQ</NavDropdown.Item>
               </NavDropdown>
 
               {/* BLOG Dropdown */}
@@ -70,8 +72,8 @@ const Header = () => {
                 onMouseLeave={() => setBlogOpen(false)}
                 onClick={() => setBlogOpen(!blogOpen)}
               >
-                <NavDropdown.Item href="#blog/latest">Left Sidebar</NavDropdown.Item>
-                <NavDropdown.Item href="#blog/categories">Width Sidebar</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/blog-left-sidebar">Left Sidebar</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="blog-with-sidebar">Width Sidebar</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </div>

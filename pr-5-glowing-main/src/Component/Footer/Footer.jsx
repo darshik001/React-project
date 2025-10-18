@@ -7,12 +7,12 @@ import {
 } from "react-icons/fa6";
 import './Footer.css'
 
-import visa from './Icons/visa.svg'
-import master from './Icons/mastercard.svg'
-import amex from './Icons/amex.svg'
-import paypal from './Icons/paypal.svg'
-import diners from './Icons/diners.svg'
-import discover from './Icons/discover.svg'
+import visa from '../../assets/Footer image/visa.svg'
+import master from '../../assets/Footer image/mastercard.svg'
+import amex from '../../assets/Footer image/amex.svg'
+import paypal from '../../assets/Footer image/paypal.svg'
+import diners from '../../assets/Footer image/diners.svg'
+import discover from '../../assets/Footer image/discover.svg'
 const Footer = () => {
   return (
        <footer className="bg-light text-dark py-5 px-4">
@@ -85,7 +85,9 @@ const Footer = () => {
             </span>
             <span className="ms-2">
               <img src={amex} alt="" width="35px" />
-
+            </span>
+            <span className="ms-2">
+              <img src={paypal} alt="" width="35px" />
             </span>
             <span className="ms-2">
               <img src={diners} alt="" width="35px" />
