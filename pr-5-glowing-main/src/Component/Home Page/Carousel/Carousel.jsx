@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Img1 from '../../../assets/home image/hero-slider-01.webp';
-import Img2 from '../../../assets/home image/hero-slider-02.webp';
-import Img3 from '../../../assets/home image/hero-slider-03.webp';
+import Img1 from '../../../assets/Home image/hero-slider-01.webp';
+import Img2 from '../../../assets/Home image/hero-slider-02.webp';
+import Img3 from '../../../assets/Home image/hero-slider-03.webp';
 // import './Carousel.css'
 
 let carouselItems = [

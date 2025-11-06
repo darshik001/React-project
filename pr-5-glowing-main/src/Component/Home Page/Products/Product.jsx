@@ -9,7 +9,7 @@ import hoverImage4 from "../../../assets/Home image/product-06-2.webp";
 import Img2 from "../../../assets/Home image/product-05-1.webp";
 import Img3 from "../../../assets/Home image/product-03-3.webp";
 import Img4 from "../../../assets/Home image/product-06-1.webp";
-import "./product.css";
+import "./Product.css";
 import { BsEye, BsCart, BsHeart, BsChatDots } from "react-icons/bs";
 
 const FeaturedProducts = () => {

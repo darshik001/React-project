@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa6";
 import './Footer.css'
 
-import visa from '../../assets/Footer image/visa.svg'
+import visa from '../../assets/Footer image/Visa.svg'
 import master from '../../assets/Footer image/mastercard.svg'
 import amex from '../../assets/Footer image/amex.svg'
 import paypal from '../../assets/Footer image/paypal.svg'

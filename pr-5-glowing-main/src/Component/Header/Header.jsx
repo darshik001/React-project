@@ -5,7 +5,7 @@ import { Navbar, Container, Nav, NavDropdown, Badge, Button, Offcanvas, Row, Col
 import { FaSearch, FaUser, FaStar, FaShoppingCart, FaBars, FaChevronRight, FaInstagram, FaFacebook, FaYoutube, } from 'react-icons/fa';
 
 import { FaXTwitter } from "react-icons/fa6";
-// import Logo from '../../assets/logo-dark.png'
+
 import Logo from '../../assets/about image/logo-dark.png'
 import { Link } from 'react-router';
 
@@ -13,7 +13,7 @@ const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
-  // Dropdown states
+  
   const [shopOpen, setShopOpen] = useState(false);
   const [pagesOpen, setPagesOpen] = useState(false);
   const [blogOpen, setBlogOpen] = useState(false);
@@ -22,7 +22,7 @@ const Header = () => {
     <>
       <Navbar expand="xl" className="bg-white py-3 border-bottom">
         <Container fluid className="px-4">
-          {/* Left side (menu toggle + nav links) */}
+          
           <div className="d-flex align-items-center">
             <Button
               variant="light"
