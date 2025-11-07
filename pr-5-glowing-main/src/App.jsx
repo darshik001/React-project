@@ -10,6 +10,7 @@ import BlogSiderbar from './Component/BlogSidebar page/BlogSiderbar'
 import WithSidebar from './Component/BlogwithSidebar page/WithSidebar'
 import About from './Component/About page/About'
 import { Route, Routes } from 'react-router'
+import FAQSection from './Component/FAQ/FAQ'
 function App() {
 
   return (
@@ -22,12 +23,12 @@ function App() {
         <Route path='/product' element={<SingleProduct/>}/>
         <Route path='/aboutus' element={ <About/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/faq' element={ <h2>Faq Page</h2>}/>
+        <Route path='/faq' element={ <FAQSection/>}/>
 
         <Route path='blog-left-sidebar' element={<BlogSiderbar/>}/>
         <Route path='blog-with-sidebar' element={<WithSidebar/>}/>
        </Routes>
-
+         
     {/* 
     
    
