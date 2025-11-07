@@ -13,7 +13,7 @@ const Employees = () => {
     useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem("empdetails")) || [];
         setEmployees(storedData);
-    }, []);
+    });
 
     const handleDelete = (id) => {
         const updated = employees.filter((emp) => emp.id !== id);
