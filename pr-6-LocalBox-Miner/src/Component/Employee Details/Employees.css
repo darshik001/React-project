@@ -1,0 +1,71 @@
+.employee-bg {
+    background: linear-gradient(135deg, #0a2a33 0%, #1a5e63 100%);
+    min-height: 100vh;
+    color: #fff;
+}
+
+.glass-table-wrapper {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+}
+
+.table-gradient {
+    background: linear-gradient(135deg, #16a085, #1abc9c);
+}
+
+.modern-table tbody tr:hover {
+    background-color: rgba(22, 160, 133, 0.15);
+    transition: background 0.3s;
+}
+
+.emp-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1abc9c;
+}
+
+.modern-modal .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modern-modal .modal-header {
+    background: linear-gradient(135deg, #1abc9c, #16a085);
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.modern-modal .modal-body {
+    background-color: #f9fdfd;
+}
+
+button.btn-info {
+    background-color: #17a2b8 !important;
+    border: none;
+}
+
+button.btn-warning {
+    background-color: #f39c12 !important;
+    border: none;
+}
+
+button.btn-danger {
+    background-color: #e74c3c !important;
+    border: none;
+}
+
+button.btn-success {
+    background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+button.btn-success:hover {
+    background: linear-gradient(135deg, #16a085 0%, #0c7a65 100%);
+}
