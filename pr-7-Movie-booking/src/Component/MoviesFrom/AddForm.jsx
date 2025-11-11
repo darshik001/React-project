@@ -3,8 +3,9 @@ import { FaFilm } from "react-icons/fa";
 const AddForm = () => {
     const handalSubmit = (e) => {
         e.preventDefault()
-
     }
+
+    
     return (
         <>
             <Container className="mt-4">
