@@ -11,32 +11,33 @@ import {
 import { useEffect, useState } from "react";
 import generateUniqueId from "generate-unique-id";
 import { getStroregeData, setStroregeData } from "../Services/StorageData";
+import { useNavigate } from "react-router";
 
 const AddForm = () => {
+
+const navigation =useNavigate()
+
   const initialValues = {
     id: "",
     title: "",
     posterUrl: "",
     genre: "",
-    industry: "", // ✅ new field
+    industry: "",
     duration: "",
     language: "",
     date: "",
   };
 
-  // Load from local storage
   const storedData = getStroregeData() || [];
 
   const [inputForm, setInputForm] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [storage, setStorage] = useState(storedData);
 
-  // Update local storage when data changes
   useEffect(() => {
     setStroregeData(storage);
   }, [storage]);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputForm({
@@ -45,14 +46,13 @@ const AddForm = () => {
     });
   };
 
-  // Validate form
   const validateForm = () => {
     let newErrors = {};
 
     if (inputForm.title.trim() === "") newErrors.title = "Please enter the movie title";
     if (inputForm.posterUrl.trim() === "") newErrors.posterUrl = "Please enter the poster URL";
     if (inputForm.genre === "") newErrors.genre = "Please select a genre";
-    if (inputForm.industry === "") newErrors.industry = "Please select an industry"; // ✅
+    if (inputForm.industry === "") newErrors.industry = "Please select an industry"; 
     if (inputForm.duration === "" || inputForm.duration <= 0) newErrors.duration = "Enter a valid duration";
     if (inputForm.language === "") newErrors.language = "Please select a language";
     if (inputForm.date === "") newErrors.date = "Please select a release date";
@@ -61,7 +61,6 @@ const AddForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,7 +73,7 @@ const AddForm = () => {
       setStorage([...storage, newMovie]);
       setInputForm(initialValues);
       setErrors({});
-      console.log("Form submitted successfully:", newMovie);
+      navigation('/')
     }
   };
 
@@ -92,7 +91,6 @@ const AddForm = () => {
               </h3>
 
               <Form onSubmit={handleSubmit}>
-                {/* Movie Title */}
                 <Form.Group className="mb-3" controlId="movieTitle">
                   <Form.Label>
                     Movie Title <span className="text-danger">*</span>
@@ -112,7 +110,6 @@ const AddForm = () => {
                   {errors.title && <Form.Text className="text-danger">{errors.title}</Form.Text>}
                 </Form.Group>
 
-                {/* Poster URL */}
                 <Form.Group className="mb-3" controlId="posterUrl">
                   <Form.Label>
                     Poster URL <span className="text-danger">*</span>
@@ -132,7 +129,6 @@ const AddForm = () => {
                   {errors.posterUrl && <Form.Text className="text-danger">{errors.posterUrl}</Form.Text>}
                 </Form.Group>
 
-                {/* Genre */}
                 <Form.Group className="mb-3" controlId="movieGenre">
                   <Form.Label>
                     Genre <span className="text-danger">*</span>
@@ -156,7 +152,6 @@ const AddForm = () => {
                   {errors.genre && <Form.Text className="text-danger">{errors.genre}</Form.Text>}
                 </Form.Group>
 
-                {/* ✅ Industry Dropdown */}
                 <Form.Group className="mb-3" controlId="movieIndustry">
                   <Form.Label>
                     Industry <span className="text-danger">*</span>
@@ -174,7 +169,6 @@ const AddForm = () => {
                   {errors.industry && <Form.Text className="text-danger">{errors.industry}</Form.Text>}
                 </Form.Group>
 
-                {/* Duration */}
                 <Form.Group className="mb-3" controlId="movieDuration">
                   <Form.Label>
                     Duration (minutes) <span className="text-danger">*</span>
@@ -194,7 +188,6 @@ const AddForm = () => {
                   {errors.duration && <Form.Text className="text-danger">{errors.duration}</Form.Text>}
                 </Form.Group>
 
-                {/* Language */}
                 <Form.Group className="mb-3" controlId="movieLanguage">
                   <Form.Label>
                     Language <span className="text-danger">*</span>
@@ -219,7 +212,6 @@ const AddForm = () => {
                   {errors.language && <Form.Text className="text-danger">{errors.language}</Form.Text>}
                 </Form.Group>
 
-                {/* Release Date */}
                 <Form.Group className="mb-3" controlId="movieReleaseDate">
                   <Form.Label>
                     Release Date <span className="text-danger">*</span>
@@ -238,7 +230,6 @@ const AddForm = () => {
                   {errors.date && <Form.Text className="text-danger">{errors.date}</Form.Text>}
                 </Form.Group>
 
-                {/* Submit */}
                 <div className="text-center">
                   <Button type="submit" variant="warning" className="fw-bold px-4">
                     Add Movie

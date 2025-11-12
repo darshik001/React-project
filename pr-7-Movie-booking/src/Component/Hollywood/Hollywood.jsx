@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStroregeData } from "../Services/StorageData";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import {
   FaFilm,
   FaList,
@@ -8,25 +8,95 @@ import {
   FaClock,
   FaCalendarAlt,
   FaIndustry,
+  FaSearch,
+  FaRedoAlt,
+  FaSortAlphaUp,
+  FaSortAlphaDownAlt,
 } from "react-icons/fa";
 
 const Hollywood=()=> {
   const [movies, setMovies] = useState([]);
+  const [searchMovie, setSearchMovie] = useState("");
 
 
 useEffect(() => {
     const storedMovies = getStroregeData() || [];
     const HollywoodMovies = storedMovies.filter((movie) => movie.industry === "Hollywood");
-    console.log(HollywoodMovies)
     setMovies(HollywoodMovies);
   }, []);
 
+const handleSearch = ()=>{
+const storedMovies = getStroregeData() || [];
+  const hollywoodMovies = storedMovies.filter(
+    (movie) => movie.industry === "Hollywood"
+  );
+
+  const filtered = hollywoodMovies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchMovie.toLowerCase())||
+   movie.language.toLowerCase().includes(searchMovie.toLowerCase())||
+   movie.genre.toLowerCase().includes(searchMovie.toLowerCase())
+)
+setMovies(filtered)
+    setSearchMovie("");
+
+}
+
+const handalAsc = ()=>{
+const stored = [...movies].sort((a,b)=>
+   a.title.localeCompare(b.title)
+)
+setMovies(stored)
+}
+
+const handalDesc = ()=>{
+const stored = [...movies].sort((a,b)=>
+b.title.localeCompare(a.title)
+)
+setMovies(stored)
+}
+
+const handalReset = ()=>{
+ const storedMovies = getStroregeData() || [];
+    const HollywoodMovies = storedMovies.filter((movie) => movie.industry === "Hollywood");
+    setMovies(HollywoodMovies)
+}
   return (
     <Container className="mt-4">
       <h2 className="text-center text-warning fw-bold mb-4">
         <FaFilm className="me-2 text-black" />
         Movie Collection
       </h2>
+
+      <div
+        className="d-flex justify-content-center align-items-center mb-4 flex-wrap"
+        style={{ maxWidth: "900px", margin: "0 auto", gap: "8px" }}
+      >
+        <InputGroup style={{ flex: 1, minWidth: "200px" }}>
+          <Form.Control
+            placeholder="Search by movie title or language..."
+            value={searchMovie}
+            onChange={(e) => setSearchMovie(e.target.value)}
+          />
+
+          <Button variant="warning" onClick={handleSearch}>
+            <FaSearch className="me-1" /> Search
+          </Button>
+        </InputGroup>
+
+        <Button variant="secondary" onClick={handalReset}>
+          <FaRedoAlt className="me-1" /> Reset
+        </Button>
+
+        <Button variant="outline-warning" onClick={handalAsc}>
+          <FaSortAlphaUp className="me-1" /> A–Z
+        </Button>
+
+        <Button variant="outline-warning" onClick={handalDesc}>
+          <FaSortAlphaDownAlt className="me-1" /> Z–A
+        </Button>
+
+
+      </div>
 
       {movies.length === 0 ? (
         <h5 className="text-center text-muted">No movies added yet.</h5>

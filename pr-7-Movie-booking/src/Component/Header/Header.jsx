@@ -7,7 +7,6 @@ const Header=()=> {
    <>
         <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm py-3">
       <Container>
-        {/* Brand */}
         <Navbar.Brand href="/" className="fw-bold text-uppercase d-flex align-items-center">
           <FaFilm className="me-2 text-warning fs-4" />
           Movie<span className="text-warning">Booking</span>
@@ -15,7 +14,6 @@ const Header=()=> {
 
         <Navbar.Toggle aria-controls="movie-navbar-nav" />
         <Navbar.Collapse id="movie-navbar-nav">
-          {/* Center Nav Links */}
           <Nav className="mx-auto">
             <Nav.Link as={Link} to="/" className="fw-semibold">Home</Nav.Link>
             <Nav.Link as={Link} to="/bollywood" className="fw-semibold">Bollywood</Nav.Link>
@@ -25,7 +23,6 @@ const Header=()=> {
 
           
 
-          {/* Profile Icon */}
           <Nav>
             <Nav.Link href="/profile">
               <FaUserCircle className="fs-4 text-warning" />

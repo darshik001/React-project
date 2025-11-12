@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStroregeData } from "../Services/StorageData";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import {
   FaFilm,
   FaList,
@@ -8,18 +8,62 @@ import {
   FaClock,
   FaCalendarAlt,
   FaIndustry,
+  FaSortAlphaDownAlt,
+  FaSortAlphaUp,
+  FaRedoAlt,
+  FaSearch,
 } from "react-icons/fa";
 
-const Bollywood=()=> {
+const Bollywood = () => {
   const [movies, setMovies] = useState([]);
+  const [searchMovie, setSearchMovie] = useState("");
 
 
-useEffect(() => {
+  useEffect(() => {
     const storedMovies = getStroregeData() || [];
     const bollywoodMovies = storedMovies.filter((movie) => movie.industry === "Bollywood");
-    console.log(bollywoodMovies)
     setMovies(bollywoodMovies);
   }, []);
+
+
+
+  const handleSearch = () => {
+const storedMovies = getStroregeData() || [];
+  const bollywoodMovies = storedMovies.filter(
+    (movie) => movie.industry === "Bollywood"
+  );
+    const filtered = bollywoodMovies.filter((movie) =>
+      movie.title.toLowerCase().includes(searchMovie.toLowerCase()) ||
+      movie.language.toLowerCase().includes(searchMovie.toLowerCase()) ||
+      movie.genre.toLowerCase().includes(searchMovie.toLowerCase())
+
+    )
+    setMovies(filtered)
+    setSearchMovie("");
+
+  }
+
+  const handleAsc = () => {
+    const stored = [...movies].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    )
+    setMovies(stored)
+  }
+
+  const handleDesc = () => {
+    const stored = [...movies].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    )
+    setMovies(stored)
+
+  }
+
+  const handleReset = () => {
+    const storedMovies = getStroregeData() || [];
+    const bollywoodMovies = storedMovies.filter((movie) => movie.industry === "Bollywood");
+
+    setMovies(bollywoodMovies);
+  }
 
   return (
     <Container className="mt-4">
@@ -28,6 +72,36 @@ useEffect(() => {
         Movie Collection
       </h2>
 
+      <div
+        className="d-flex justify-content-center align-items-center mb-4 flex-wrap"
+        style={{ maxWidth: "900px", margin: "0 auto", gap: "8px" }}
+      >
+        <InputGroup style={{ flex: 1, minWidth: "200px" }}>
+          <Form.Control
+            placeholder="Search by movie title or language..."
+            value={searchMovie}
+            onChange={(e) => setSearchMovie(e.target.value)}
+          />
+
+          <Button variant="warning" onClick={handleSearch}>
+            <FaSearch className="me-1" /> Search
+          </Button>
+        </InputGroup>
+
+        <Button variant="secondary" onClick={handleReset}>
+          <FaRedoAlt className="me-1" /> Reset
+        </Button>
+
+        <Button variant="outline-warning" onClick={handleAsc}>
+          <FaSortAlphaUp className="me-1" /> A–Z
+        </Button>
+
+        <Button variant="outline-warning" onClick={handleDesc}>
+          <FaSortAlphaDownAlt className="me-1" /> Z–A
+        </Button>
+
+
+      </div>
       {movies.length === 0 ? (
         <h5 className="text-center text-muted">No movies added yet.</h5>
       ) : (

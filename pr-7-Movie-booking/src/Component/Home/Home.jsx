@@ -31,31 +31,29 @@ const Home = () => {
     setMovies(storedMovies);
   }, []);
 
-  // ✅ Search handler
   const handleSearch = () => {
     const storedMovies = getStroregeData() || [];
     const filtered = storedMovies.filter(
       (movie) =>
         movie.title.toLowerCase().includes(searchMovie.toLowerCase()) ||
-        movie.language.toLowerCase().includes(searchMovie.toLowerCase())
+        movie.language.toLowerCase().includes(searchMovie.toLowerCase()) ||
+        movie.genre.toLowerCase().includes(searchMovie.toLowerCase())
     );
     setMovies(filtered);
+    setSearchMovie("");
   };
 
-  // ✅ Reset handler
   const handleReset = () => {
     const storedMovies = getStroregeData() || [];
     setMovies(storedMovies);
     setSearchMovie("");
   };
 
-  // ✅ Sort A–Z
   const handleAsc = () => {
     const sorted = [...movies].sort((a, b) => a.title.localeCompare(b.title));
     setMovies(sorted);
   };
 
-  // ✅ Sort Z–A
   const handleDesc = () => {
     const sorted = [...movies].sort((a, b) => b.title.localeCompare(a.title));
     setMovies(sorted);
@@ -63,7 +61,6 @@ const Home = () => {
 
   return (
     <Container className="mt-4">
-      {/* 🔹 Header */}
       <div className="text-center mb-4">
         <h2 className="text-warning fw-bold">
           <FaFilm className="me-2 text-black" />
@@ -71,22 +68,21 @@ const Home = () => {
         </h2>
       </div>
 
-      {/* 🔍 Search + All Buttons in One Row */}
       <div
         className="d-flex justify-content-center align-items-center mb-4 flex-wrap"
         style={{ maxWidth: "900px", margin: "0 auto", gap: "8px" }}
       >
-        <InputGroup style={{ flex: 1, minWidth: "350px" }}>
+        <InputGroup style={{ flex: 1, minWidth: "200px" }}>
           <Form.Control
             placeholder="Search by movie title or language..."
             value={searchMovie}
             onChange={(e) => setSearchMovie(e.target.value)}
           />
-        </InputGroup>
 
-        <Button variant="warning" onClick={handleSearch}>
-          <FaSearch className="me-1" /> Search
-        </Button>
+          <Button variant="warning" onClick={handleSearch}>
+            <FaSearch className="me-1" /> Search
+          </Button>
+        </InputGroup>
 
         <Button variant="secondary" onClick={handleReset}>
           <FaRedoAlt className="me-1" /> Reset
@@ -99,9 +95,10 @@ const Home = () => {
         <Button variant="outline-warning" onClick={handleDesc}>
           <FaSortAlphaDownAlt className="me-1" /> Z–A
         </Button>
+
+
       </div>
 
-      {/* 🎬 Movie Cards */}
       {movies.length === 0 ? (
         <h5 className="text-center text-muted">No movies found.</h5>
       ) : (
@@ -109,7 +106,6 @@ const Home = () => {
           {movies.map((movie, index) => (
             <Col lg={3} md={4} sm={6} xs={12} key={movie.id || index}>
               <Card className="h-100 shadow-sm border-0">
-                {/* Poster */}
                 <div
                   style={{
                     width: "100%",
@@ -137,7 +133,6 @@ const Home = () => {
                   />
                 </div>
 
-                {/* Movie Info */}
                 <Card.Body>
                   <Card.Title className="fw-bold text-center text-primary mb-3">
                     <FaFilm className="me-2 text-warning" />
