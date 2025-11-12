@@ -3,6 +3,9 @@ import { Route, Routes } from 'react-router'
 import './App.css'
 import Header from './Component/Header/Header'
 import AddForm from './Component/MoviesFrom/AddForm'
+import Home from './Component/Home/Home'
+import Bollywood from './Component/Bollywood/Bollywood'
+import Hollywood from './Component/Hollywood/Hollywood'
 
 function App() {
 
@@ -10,7 +13,9 @@ function App() {
     <>
     <Header/>
        <Routes>
-        <Route path='/' element={<h2>this is Home Page</h2>}/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/bollywood' element={<Bollywood/>}/>
+        <Route path='/hollywood' element={<Hollywood/>}/>
         <Route path='/addmovie' element={ <AddForm/>}/>
        
        </Routes>
