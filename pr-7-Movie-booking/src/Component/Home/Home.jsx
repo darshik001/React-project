@@ -1,38 +1,21 @@
 import { useEffect, useState } from "react";
-import { getStroregeData } from "../Services/StorageData";
-import {
-  Card,
-  Col,
-  Container,
-  Row,
-  Form,
-  InputGroup,
-  Button,
-} from "react-bootstrap";
-import {
-  FaFilm,
-  FaList,
-  FaGlobe,
-  FaClock,
-  FaCalendarAlt,
-  FaIndustry,
-  FaSearch,
-  FaRedoAlt,
-  FaSortAlphaUp,
-  FaSortAlphaDownAlt,
-} from "react-icons/fa";
+import { getStorageData, setStorageData } from "../Services/StorageData";
+import { Card, Col, Container, Row, Form, InputGroup, Button } from "react-bootstrap";
+import { FaFilm, FaList, FaGlobe, FaClock, FaCalendarAlt, FaIndustry, FaSearch, FaRedoAlt, FaSortAlphaUp, FaSortAlphaDownAlt, FaEdit, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [searchMovie, setSearchMovie] = useState("");
 
+  const navigation = useNavigate()
   useEffect(() => {
-    const storedMovies = getStroregeData() || [];
+    const storedMovies = getStorageData() || [];
     setMovies(storedMovies);
   }, []);
 
-  const handleSearch = () => {
-    const storedMovies = getStroregeData() || [];
+  const handalSearch = () => {
+    const storedMovies = getStorageData() || [];
     const filtered = storedMovies.filter(
       (movie) =>
         movie.title.toLowerCase().includes(searchMovie.toLowerCase()) ||
@@ -43,22 +26,33 @@ const Home = () => {
     setSearchMovie("");
   };
 
-  const handleReset = () => {
-    const storedMovies = getStroregeData() || [];
+  const handalReset = () => {
+    const storedMovies = getStorageData() || [];
     setMovies(storedMovies);
     setSearchMovie("");
   };
 
-  const handleAsc = () => {
+  const handalAsc = () => {
     const sorted = [...movies].sort((a, b) => a.title.localeCompare(b.title));
     setMovies(sorted);
   };
 
-  const handleDesc = () => {
+  const handalDesc = () => {
     const sorted = [...movies].sort((a, b) => b.title.localeCompare(a.title));
     setMovies(sorted);
   };
 
+  const handalDelete = (id) => {
+    const storedMovies = getStorageData() || [];
+    const filterdData = storedMovies.filter((movie) => movie.id !== id)
+    setStorageData(filterdData)
+    setMovies(filterdData)
+  }
+
+
+  const handalEdit = (id) => {
+    navigation(`/edtmovie/${id}`)
+  }
   return (
     <Container className="mt-4">
       <div className="text-center mb-4">
@@ -73,26 +67,22 @@ const Home = () => {
         style={{ maxWidth: "900px", margin: "0 auto", gap: "8px" }}
       >
         <InputGroup style={{ flex: 1, minWidth: "200px" }}>
-          <Form.Control
-            placeholder="Search by movie title or language..."
-            value={searchMovie}
-            onChange={(e) => setSearchMovie(e.target.value)}
-          />
+          <Form.Control placeholder="Search by movie title or language..." value={searchMovie} onChange={(e) => setSearchMovie(target.value)} />
 
-          <Button variant="warning" onClick={handleSearch}>
+          <Button variant="warning" onClick={handalSearch}>
             <FaSearch className="me-1" /> Search
           </Button>
         </InputGroup>
 
-        <Button variant="secondary" onClick={handleReset}>
+        <Button variant="secondary" onClick={handalReset}>
           <FaRedoAlt className="me-1" /> Reset
         </Button>
 
-        <Button variant="outline-warning" onClick={handleAsc}>
+        <Button variant="outline-warning" onClick={handalAsc}>
           <FaSortAlphaUp className="me-1" /> A–Z
         </Button>
 
-        <Button variant="outline-warning" onClick={handleDesc}>
+        <Button variant="outline-warning" onClick={handalDesc}>
           <FaSortAlphaDownAlt className="me-1" /> Z–A
         </Button>
 
@@ -107,30 +97,8 @@ const Home = () => {
             <Col lg={3} md={4} sm={6} xs={12} key={movie.id || index}>
               <Card className="h-100 shadow-sm border-0">
                 <div
-                  style={{
-                    width: "100%",
-                    height: "340px",
-                    overflow: "hidden",
-                    backgroundColor: "#f8f9fa",
-                    borderTopLeftRadius: "0.5rem",
-                    borderTopRightRadius: "0.5rem",
-                  }}
-                >
-                  <Card.Img
-                    variant="top"
-                    src={
-                      movie.posterUrl?.trim()
-                        ? movie.posterUrl
-                        : "https://via.placeholder.com/300x400?text=No+Image"
-                    }
-                    alt={movie.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                    }}
-                  />
+                  style={{ width: "100%", height: "340px", overflow: "hidden", backgroundColor: "#f8f9fa", borderTopLeftRadius: "0.5rem", borderTopRightRadius: "0.5rem", }}>
+                  <Card.Img variant="top" src={movie.posterUrl?.trim() ? movie.posterUrl : "https://via.placeholder.com/300x400?text=No+Image"} alt={movie.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", }} />
                 </div>
 
                 <Card.Body>
@@ -163,6 +131,14 @@ const Home = () => {
                     </p>
                   </div>
                 </Card.Body>
+                <Card.Footer className="text-center bg-light">
+                  <Button variant="outline-danger" size="sm" className="me-2 px-3" onClick={() => handalDelete(movie.id)}><FaTrash className="me-1" /> Delete
+                  </Button>
+
+                  <Button variant="outline-primary" size="sm" className="px-3" onClick={() => handalEdit(movie.id)}>
+                    <FaEdit className="me-1" /> Edit
+                  </Button>
+                </Card.Footer>
               </Card>
             </Col>
           ))}

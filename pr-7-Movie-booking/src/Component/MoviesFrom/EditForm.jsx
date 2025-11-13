@@ -1,14 +1,13 @@
 import { Container, Row, Col, Form, Button, Card, InputGroup } from "react-bootstrap";
 import { FaFilm, FaCalendarAlt, FaGlobe, FaClock, FaPhotoVideo, FaList, FaHeading } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import generateUniqueId from "generate-unique-id";
 import { getStorageData, setStorageData } from "../Services/StorageData";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-const AddForm = () => {
+const EditForm = () => {
 
   const navigation = useNavigate()
-
+  const { id } = useParams()
   const initialValues = {
     id: "",
     title: "",
@@ -24,11 +23,11 @@ const AddForm = () => {
 
   const [inputForm, setInputForm] = useState(initialValues);
   const [errors, setErrors] = useState({});
-  const [storage, setStorage] = useState(storedData);
 
   useEffect(() => {
-    setStorageData(storage);
-  }, [storage]);
+    const movieEdit = storedData.find((movie) => movie.id === id)
+    setInputForm(movieEdit)
+  }, [id]);
 
   const handalChange = (e) => {
     const { name, value } = e.target;
@@ -57,15 +56,12 @@ const AddForm = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const newMovie = {
-        ...inputForm,
-        id: "PR@" + generateUniqueId({ length: 10, useLetters: false }),
-      };
+      const updatedMovies = storedData.map((movie) =>
+        movie.id === id ? inputForm : movie
+      );
 
-      setStorage([...storage, newMovie]);
-      setInputForm(initialValues);
-      setErrors({});
-      navigation('/')
+      setStorageData(updatedMovies);
+      navigation("/");
     }
   };
 
@@ -79,7 +75,7 @@ const AddForm = () => {
                 <span className="text-black">
                   <FaFilm />
                 </span>{" "}
-                Add Movie
+                Edit Movie
               </h3>
 
               <Form onSubmit={handalSubmit}>
@@ -201,7 +197,7 @@ const AddForm = () => {
 
                 <div className="text-center">
                   <Button type="submit" variant="warning" className="fw-bold px-4">
-                    Add Movie
+                    Svave change
                   </Button>
                 </div>
               </Form>
@@ -213,4 +209,4 @@ const AddForm = () => {
   );
 };
 
-export default AddForm;
+export default EditForm;

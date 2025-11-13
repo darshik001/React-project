@@ -6,6 +6,7 @@ import AddForm from './Component/MoviesFrom/AddForm'
 import Home from './Component/Home/Home'
 import Bollywood from './Component/Bollywood/Bollywood'
 import Hollywood from './Component/Hollywood/Hollywood'
+import EditForm from './Component/MoviesFrom/EditForm'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='/bollywood' element={<Bollywood/>}/>
         <Route path='/hollywood' element={<Hollywood/>}/>
         <Route path='/addmovie' element={ <AddForm/>}/>
+        <Route path='/edtmovie/:id' element={ <EditForm/>}/>
        
        </Routes>
       

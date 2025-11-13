@@ -7,7 +7,7 @@ const Header=()=> {
    <>
         <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm py-3">
       <Container>
-        <Navbar.Brand href="/" className="fw-bold text-uppercase d-flex align-items-center">
+        <Navbar.Brand as={Link} to="/" className="fw-bold text-uppercase d-flex align-items-center">
           <FaFilm className="me-2 text-warning fs-4" />
           Movie<span className="text-warning">Booking</span>
         </Navbar.Brand>
@@ -24,7 +24,7 @@ const Header=()=> {
           
 
           <Nav>
-            <Nav.Link href="/profile">
+            <Nav.Link href="#">
               <FaUserCircle className="fs-4 text-warning" />
             </Nav.Link>
           </Nav>
