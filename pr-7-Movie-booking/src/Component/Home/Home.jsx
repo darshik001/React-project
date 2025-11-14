@@ -98,7 +98,7 @@ const Home = () => {
               <Card className="h-100 shadow-sm border-0">
                 <div
                   style={{ width: "100%", height: "340px", overflow: "hidden", backgroundColor: "#f8f9fa", borderTopLeftRadius: "0.5rem", borderTopRightRadius: "0.5rem", }}>
-                  <Card.Img variant="top" src={movie.posterUrl?.trim() ? movie.posterUrl : "https://via.placeholder.com/300x400?text=No+Image"} alt={movie.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", }} />
+                  <Card.Img variant="top" src={movie.posterUrl} alt={movie.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", }} />
                 </div>
 
                 <Card.Body>
