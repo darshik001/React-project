@@ -67,7 +67,7 @@ const Home = () => {
         style={{ maxWidth: "900px", margin: "0 auto", gap: "8px" }}
       >
         <InputGroup style={{ flex: 1, minWidth: "200px" }}>
-          <Form.Control placeholder="Search by movie title or language..." value={searchMovie} onChange={(e) => setSearchMovie(target.value)} />
+          <Form.Control placeholder="Search by movie title or language..." value={searchMovie} onChange={(e) => setSearchMovie(e.target.value)} />
 
           <Button variant="warning" onClick={handalSearch}>
             <FaSearch className="me-1" /> Search
