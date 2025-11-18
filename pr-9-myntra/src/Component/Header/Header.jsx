@@ -1,0 +1,125 @@
+import { Navbar, Nav, Form, FormControl, Container, Offcanvas } from "react-bootstrap";
+import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch } from "react-icons/fa";
+import Logo from "../../assets/myntra-logo.webp";
+import offcanvas1 from '../../assets/offcanvas-1.webp'
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./Header.css"
+function Header() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 992) {
+        setShow(false);
+      }
+    };
+
+    addEventListener("resize", handleResize);
+    return () => removeEventListener("resize", handleResize);
+  }, []);
+  return (
+    <>
+      <Navbar expand="lg" className="py-3 shadow-sm">
+        <Container>
+
+          <button
+            className="navbar-toggler border-0 p-0 shadow-none"
+            onClick={handleShow}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <Navbar.Brand className="me-auto ms-5" as={Link} to="/">
+            <img
+              src={Logo}
+              height="40"
+              alt="Myntra Logo"
+            />
+          </Navbar.Brand>
+
+          {/* Desktop Navbar Menu */}
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto ms-5">
+              <Nav.Link as={Link} to="/">MEN</Nav.Link>
+              <Nav.Link as={Link} to="#">WOMEN</Nav.Link>
+              <Nav.Link as={Link} to="#">KIDS</Nav.Link>
+            </Nav>
+
+            {/* Search Bar */}
+            <Form className="d-flex align-items-center me-4">
+              <div style={{ position: "relative" }}>
+                <FaSearch
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "10px",
+                    transform: "translateY(-50%)",
+                    color: "gray",
+                  }}
+                />
+
+                <FormControl
+                  placeholder="Search for products, brands and more"
+                  className="ps-5 header-search"
+                  style={{ width: "200px" }}
+                />
+              </div>
+            </Form>
+
+             <Nav className="me-4">
+              <Nav.Link as={Link} to="/">ADD PRODUCT</Nav.Link>
+             
+            </Nav>
+          </Navbar.Collapse>
+
+          {/* Right Icons */}
+          <div className="d-flex flex-end">
+            <Link
+              to="#"
+              className="text-decoration-none text-black d-flex flex-column align-items-center d-none d-md-flex"
+            >
+              <FaRegUser size={20} />
+              <small>Profile</small>
+            </Link>
+
+            <Link
+              to="#"
+              className="text-decoration-none text-black d-flex flex-column align-items-center mx-4"
+            >
+              <FaRegHeart size={20} />
+              <small>Wishlist</small>
+            </Link>
+
+            <Link
+              to="#"
+              className="text-decoration-none text-black d-flex flex-column align-items-center"
+            >
+              <FaShoppingBag size={20} />
+              <small>Bag</small>
+            </Link>
+          </div>
+        </Container>
+      </Navbar>
+
+      {/* Offcanvas Menu */}
+      <Offcanvas   show={show} onHide={handleClose}>
+        
+        <Offcanvas.Body>
+          <div className="w-100 border-5">
+     <img src={offcanvas1} alt="" width={100} />
+          </div>
+          <Nav className="flex-column text-black">
+            <Nav.Link as={Link} to="/">MEN</Nav.Link>
+            <Nav.Link as={Link} to="#">WOMEN</Nav.Link>
+            <Nav.Link as={Link} to="#">KIDS</Nav.Link>
+          </Nav>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+}
+
+export default Header;
