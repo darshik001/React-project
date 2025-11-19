@@ -1,8 +1,8 @@
 import { Navbar, Nav, Form, FormControl, Container, Offcanvas } from "react-bootstrap";
 import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch,FaChevronRight  } from "react-icons/fa";
-import Logo from "../../assets/myntra-logo.webp";
-import offcanvas1 from '../../assets/offcanvas-1.webp'
-import offcanvas2 from '../../assets/offcanvas-2.png'
+import Logo from "../../assets/img/Header/myntra-logo.webp";
+import offcanvas1 from '../../assets/img/Header/offcanvas-1.webp'
+import offcanvas2 from '../../assets/img/Header/offcanvas-2.png'
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css"
@@ -43,10 +43,12 @@ useEffect(() => {
 
           {/* Desktop Navbar Menu */}
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto ms-5">
+            <Nav className="me-auto ms-3">
               <Nav.Link as={Link} to="/man">MEN</Nav.Link>
               <Nav.Link as={Link} to="/women">WOMEN</Nav.Link>
               <Nav.Link as={Link} to="/kids">KIDS</Nav.Link>
+              <Nav.Link as={Link} to="/">HOME</Nav.Link>
+              <Nav.Link as={Link} to="/">BEAUTY</Nav.Link>
             </Nav>
 
             {/* Search Bar */}
@@ -70,7 +72,7 @@ useEffect(() => {
               </div>
             </Form>
 
-             <Nav className="me-4">
+             <Nav className="me-3">
               <Nav.Link as={Link} to="/addproduct">ADD PRODUCT</Nav.Link>
              
             </Nav>
@@ -115,7 +117,9 @@ useEffect(() => {
           <Nav className="flex-column text-black">
             <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/man">MEN <span><FaChevronRight/></span></Nav.Link>
             <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/women">WOMEN <span><FaChevronRight/></span></Nav.Link>
-            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/kids">KIDS <span><FaChevronRight/></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/">KIDS <span><FaChevronRight/></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/">HOME <span><FaChevronRight/></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/">BEAUTY<span><FaChevronRight/></span></Nav.Link>
            
           </Nav>
           <hr/>
