@@ -1,7 +1,8 @@
 import { Navbar, Nav, Form, FormControl, Container, Offcanvas } from "react-bootstrap";
-import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch } from "react-icons/fa";
+import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch,FaChevronRight  } from "react-icons/fa";
 import Logo from "../../assets/myntra-logo.webp";
 import offcanvas1 from '../../assets/offcanvas-1.webp'
+import offcanvas2 from '../../assets/offcanvas-2.png'
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css"
@@ -12,7 +13,7 @@ function Header() {
   const handleShow = () => setShow(true);
 useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 992) {
+      if (window.innerWidth >= 992 ) {
         setShow(false);
       }
     };
@@ -43,9 +44,9 @@ useEffect(() => {
           {/* Desktop Navbar Menu */}
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto ms-5">
-              <Nav.Link as={Link} to="/">MEN</Nav.Link>
-              <Nav.Link as={Link} to="#">WOMEN</Nav.Link>
-              <Nav.Link as={Link} to="#">KIDS</Nav.Link>
+              <Nav.Link as={Link} to="/man">MEN</Nav.Link>
+              <Nav.Link as={Link} to="/women">WOMEN</Nav.Link>
+              <Nav.Link as={Link} to="/kids">KIDS</Nav.Link>
             </Nav>
 
             {/* Search Bar */}
@@ -70,7 +71,7 @@ useEffect(() => {
             </Form>
 
              <Nav className="me-4">
-              <Nav.Link as={Link} to="/">ADD PRODUCT</Nav.Link>
+              <Nav.Link as={Link} to="/addproduct">ADD PRODUCT</Nav.Link>
              
             </Nav>
           </Navbar.Collapse>
@@ -105,17 +106,27 @@ useEffect(() => {
       </Navbar>
 
       {/* Offcanvas Menu */}
-      <Offcanvas   show={show} onHide={handleClose}>
+      <Offcanvas className="header-offcanvas"  show={show} onHide={handleClose}>
         
-        <Offcanvas.Body>
+        <Offcanvas.Body className="p-0 ">
           <div className="w-100 border-5">
-     <img src={offcanvas1} alt="" width={100} />
+     <img src={offcanvas1} alt="" className="w-100" />
           </div>
           <Nav className="flex-column text-black">
-            <Nav.Link as={Link} to="/">MEN</Nav.Link>
-            <Nav.Link as={Link} to="#">WOMEN</Nav.Link>
-            <Nav.Link as={Link} to="#">KIDS</Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/man">MEN <span><FaChevronRight/></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/women">WOMEN <span><FaChevronRight/></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black "onClick={handleClose} as={Link} to="/kids">KIDS <span><FaChevronRight/></span></Nav.Link>
+           
           </Nav>
+          <hr/>
+          <Nav className="flex-column text-black">
+
+            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/addproduct">ADD PRODUCT <span><FaChevronRight/></span></Nav.Link>
+          </Nav>
+
+          <div className="w-100 border-5  offcanvas-img-2 mt-5">
+     <img src={offcanvas2} alt="" className="w-100" />
+          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </>
