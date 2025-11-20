@@ -1,4 +1,5 @@
 import Coupon from './coupon-code/Coupon'
+import Shop from './Shop/Shop'
 import Slider1 from './Sliders/Slider-1'
 import Slider2 from './Sliders/Slider-2'
 import Slider3 from './Sliders/Slider-3'
@@ -13,6 +14,7 @@ const Home=()=> {
     <Slider3/>
     <Slider4/>
     <Slider5/>
+    <Shop/>
     
     </>
   )
