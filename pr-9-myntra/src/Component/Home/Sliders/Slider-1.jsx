@@ -20,6 +20,7 @@ const Slider1 = () => {
   return (
     <div>
       <Carousel
+      
         activeIndex={current}
         onSelect={(selectedIndex) => setCurrent(selectedIndex)}
         interval={3000}      
