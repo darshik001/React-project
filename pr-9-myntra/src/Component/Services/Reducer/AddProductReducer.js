@@ -1,13 +1,13 @@
 import { getproductData, setProductData } from "../Storage/StorageData"
 
-const initialvalue = [
+const initialvalue = 
     {
         products: getproductData(),
         product: null,
         isLoding: false
     }
 
-]
+
 
 
 
@@ -22,6 +22,13 @@ export const AddProductRedux = (state = initialvalue, action) => {
                 ...state,
                 products: data
             }
+
+        case "GET_PRODUCTS":
+            const allproducts = getproductData()
+            return{
+                ...state,
+                products:allproducts ||[]
+            }    
         default:
             return state
     }

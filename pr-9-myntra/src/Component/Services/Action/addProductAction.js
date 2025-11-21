@@ -6,3 +6,10 @@ export const addproduct = (data)=>{
         payload:data
     }
 }
+
+
+export const getallproduct = ()=>{
+    return{
+        type:"GET_PRODUCTS"
+    }
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addproduct } from "../Services/Action/AddProductAction";
+import generateUniqueId from "generate-unique-id";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const AddProduct = () => {
     subcategory: "",
     brand: "",
     price: "",
+    // discaunt:"",
     stock: "",
     description: "",
     image: ["", "", "", ""],
@@ -64,6 +66,10 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleErrors()) {
+      inputform.id = "PR"+ generateUniqueId({
+        length:10,
+        useLetters:false,
+      })
       dispatch(addproduct(inputform));
       console.log("Submitted Product:", inputform);
       setinputform(initialState); 
