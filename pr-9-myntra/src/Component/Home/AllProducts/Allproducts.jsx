@@ -14,9 +14,10 @@ const Allproducts=()=> {
     <>
 <Container>
     <Row>
+  
       {products && products.length > 0 ? (
         products.map((product, index) => (
-       <Col md={3}>
+       <Col md={2}>
           <Card 
       className="shadow-sm border-0 rounded-3 m-2"
       
@@ -64,12 +65,18 @@ const Allproducts=()=> {
         </Card.Text>
 
         {/* Prices */}
-        <div className="mb-2">
-          <span className="fw-bold">₹{product.price}</span>{" "}
-          <span className="text-muted text-decoration-line-through">
-            ₹{product.oldPrice}
-          </span>{" "}
-          <span className="text-danger fw-semibold">(10% OFF)</span>
+        <div className="mb-2" style={{fontSize:"14px"}}>
+         <small className="fw-bold">
+  Rs.{
+    Number(product.price || 0) -
+    (Number(product.price || 0) * Number(product.discount || 0)) / 100
+  }
+</small>
+{" "}
+          <small className="text-muted text-decoration-line-through">
+            Rs.{product.price}
+          </small>{" "}
+          <small className="text-danger fw-semibold">({product.discount || 0}% OFF)</small>
         </div>
 
        

@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { getproductData } from '../Services/Storage/StorageData'
 import Coupon from './coupon-code/Coupon'
 import Shop from './Shop/Shop'
 import Slider1 from './Sliders/Slider-1'
@@ -14,6 +13,10 @@ const Home=()=> {
  const dispatch = useDispatch()
     const {products} = useSelector(state=>state)
   console.log(products)
+  const brand  = products.map((product)=> product.brand)
+  const subcategory  = products.map((product)=> product.subcategory)
+  // console.log(brand)
+  // console.log(subcategory)
  useEffect(()=>{
   dispatch(getallproduct())
  },[])

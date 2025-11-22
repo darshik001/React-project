@@ -1,93 +1,83 @@
-import React, { useEffect } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { AiFillStar } from "react-icons/ai"; 
-import { getallproduct } from '../Services/Action/AddProductAction';
+import React, { useEffect, useState } from "react";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { AiFillStar } from "react-icons/ai";
+import { getallproduct } from "../Services/Action/AddProductAction";
+import Filters from "../Filters/Filters";
 
-const Man=()=> {
-    const {products} = useSelector(state=>state)
-    console.log("STATE:", useSelector(state => state));
+const Man = () => {
+  const { products } = useSelector((state) => state);
 
-    const dispatch = useDispatch()
-    const manprodcts = products.filter(product=>product.category=== "men")
-    console.log(manprodcts)
-    useEffect(()=>{
-        dispatch(getallproduct())
- },[])
+  const dispatch = useDispatch();
+  const manProducts = products.filter((p) => p.category === "men");
+
+  const [filters, setFilters] = useState({
+    category: [],
+    brand: [],
+    discount: null,
+    price: 10000,
+  });
+
+  useEffect(() => {
+    dispatch(getallproduct());
+  }, []);
+
+  // APPLY FILTERS
+  const filtered = manProducts.filter((p) => {
+    const matchesBrand =
+      filters.brand.length === 0 || filters.brand.includes(p.brand);
+
+    const matchesDiscount =
+      !filters.discount ||
+      p.discount >= filters.discount;
+
+    const matchesPrice = p.price <= filters.price;
+
+    return matchesBrand && matchesDiscount && matchesPrice;
+  });
+
   return (
-    <>
-<Container>
-    <Row>
-      {manprodcts && manprodcts.length > 0 ? (
-        manprodcts.map((product, index) => (
-       <Col md={3}>
-          <Card 
-      className="shadow-sm border-0 rounded-3 m-2"
-      
-    >
-      {/* Image */}
-      <div style={{ position: "relative" }}>
-        <Card.Img
-          variant="top"
-          src={product.image}
-          style={{ height: "260px", objectFit: "cover" }}
-        />
+    <div className="d-flex gap-3">
+    <Filters category="men" filters={filters} setFilters={setFilters} />
+    <Container>
 
-        {/* Rating Box (Overlay) */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            left: "10px",
-            background: "white",
-            padding: "3px 8px",
-            borderRadius: "6px",
-            fontSize: "0.8rem",
-            display: "flex",
-            alignItems: "center",
-            gap: "4px",
-            boxShadow: "0 0 5px rgba(0,0,0,0.15)"
-          }}
-        >
-          <span>{product.rates.rating}</span>
-          <AiFillStar size={14} color="green" />
-          <span>|</span>
-          <span>{product.rates.rests}</span>
-        </div>
+        <Row className="flex-grow-1">
+          {filtered.length > 0 ? (
+            filtered.map((product, index) => (
+              <Col md={3} key={index}>
+                <Card className="shadow-sm border-0 rounded-3 m-2">
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    style={{ height: "260px", objectFit: "cover" }}
+                  />
+
+                  <Card.Body>
+                    <Card.Title className="fw-bold">
+                      {product.brand}
+                    </Card.Title>
+
+                    <Card.Text className="text-muted">
+                      {product.title}
+                    </Card.Text>
+
+                    <div className="mb-2">
+                      <span className="fw-bold">₹{product.price}</span>{" "}
+                      <span className="text-danger fw-semibold">
+                        ({product.discount}% OFF)
+                      </span>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <p>No matching products</p>
+          )}
+        </Row>
+    </Container>
       </div>
+  );
+};
 
-      <Card.Body>
-        {/* Brand */}
-        <Card.Title className="fw-bold" style={{ fontSize: "1rem" }}>
-          {product.brand}
-        </Card.Title>
-
-        {/* Title */}
-        <Card.Text className="text-muted" style={{ minHeight: "35px" }}>
-          {product.title}
-        </Card.Text>
-
-        {/* Prices */}
-        <div className="mb-2">
-          <span className="fw-bold">₹{product.price}</span>{" "}
-          <span className="text-muted text-decoration-line-through">
-            ₹{product.oldPrice}
-          </span>{" "}
-          <span className="text-danger fw-semibold">(10% OFF)</span>
-        </div>
-
-       
-      </Card.Body>
-    </Card>
-       </Col>
-        ))
-      ) : (
-        <p>No products available</p>
-      )}
-    </Row>
-</Container>
-    </>
-  )
-}
-
-export default Man
+export default Man;
