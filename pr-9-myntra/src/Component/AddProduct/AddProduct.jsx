@@ -3,10 +3,11 @@ import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addproduct } from "../Services/Action/AddProductAction";
 import generateUniqueId from "generate-unique-id";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-
+  const navigat = useNavigate()
   const initialState = {
     title: "",
     category: "",
@@ -44,7 +45,6 @@ const AddProduct = () => {
     }
   };
 
-  // Validate input
   const handleErrors = () => {
     const errors = {};
 
@@ -66,7 +66,6 @@ const AddProduct = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -79,9 +78,8 @@ const AddProduct = () => {
         });
 
       dispatch(addproduct(inputform));
-      console.log("Submitted Product:", inputform);
-
       setinputform(initialState);
+      navigat('/')
     }
   };
 

@@ -4,6 +4,7 @@ import AddProduct from './Component/AddProduct/AddProduct'
 import Home from './Component/Home/Home'
 import Man from './Component/Man/Man'
 import Women from './Component/Women/Women'
+import ViewProduct from './Component/ViewProduct/ViewProduct'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path='/women' element={<Women/>}/>
       <Route path='/kids' element={'kids page'}/>
       <Route path='/addproduct' element={<AddProduct/>}/>
+      <Route path='product-info/:id' element={<ViewProduct/>}/>
      </Routes>
     </>
   )
