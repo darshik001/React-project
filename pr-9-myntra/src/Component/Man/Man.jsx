@@ -31,7 +31,8 @@ const Man = () => {
       !filters.discount ||
       p.discount >= filters.discount;
 
-    const matchesPrice = p.price <= filters.price;
+    const matchesPrice = Number(p.price) <= Number(filters.price);
+
 
     return matchesBrand && matchesDiscount && matchesPrice;
   });
@@ -44,32 +45,72 @@ const Man = () => {
         <Row className="flex-grow-1">
           {filtered.length > 0 ? (
             filtered.map((product, index) => (
-              <Col md={3} key={index}>
-                <Card className="shadow-sm border-0 rounded-3 m-2">
-                  <Card.Img
-                    variant="top"
-                    src={product.image}
-                    style={{ height: "260px", objectFit: "cover" }}
-                  />
-
-                  <Card.Body>
-                    <Card.Title className="fw-bold">
-                      {product.brand}
-                    </Card.Title>
-
-                    <Card.Text className="text-muted">
-                      {product.title}
-                    </Card.Text>
-
-                    <div className="mb-2">
-                      <span className="fw-bold">₹{product.price}</span>{" "}
-                      <span className="text-danger fw-semibold">
-                        ({product.discount}% OFF)
-                      </span>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
+              <Col md={3} className="px-5">
+                       <Card 
+                   className="shadow-sm border-0 rounded-3 m-2"
+                   
+                 >
+                   {/* Image */}
+                   <div style={{ position: "relative" }}>
+                     <Card.Img
+                       variant="top"
+                       src={product.image}
+                       style={{ height: "260px", objectFit: "cover" }}
+                     />
+             
+                     {/* Rating Box (Overlay) */}
+                     <div
+                       style={{
+                         position: "absolute",
+                         bottom: "10px",
+                         left: "10px",
+                         background: "white",
+                         padding: "3px 8px",
+                         borderRadius: "6px",
+                         fontSize: "0.8rem",
+                         display: "flex",
+                         alignItems: "center",
+                         gap: "4px",
+                         boxShadow: "0 0 5px rgba(0,0,0,0.15)"
+                       }}
+                     >
+                       <span>{product.rates.rating}</span>
+                       <AiFillStar size={14} color="green" />
+                       <span>|</span>
+                       <span>{product.rates.rests}</span>
+                     </div>
+                   </div>
+             
+                   <Card.Body>
+                     {/* Brand */}
+                     <Card.Title className="fw-bold" style={{ fontSize: "1rem" }}>
+                       {product.brand}
+                     </Card.Title>
+             
+                     {/* Title */}
+                     <Card.Text className="text-muted" style={{ minHeight: "35px" }}>
+                       {product.title}
+                     </Card.Text>
+             
+                     {/* Prices */}
+                     <div className="mb-2" style={{fontSize:"14px"}}>
+                      <small className="fw-bold">
+               Rs.{
+                 Number(product.price || 0) -
+                 (Number(product.price || 0) * Number(product.discount || 0)) / 100
+               }
+             </small>
+             {" "}
+                       <small className="text-muted text-decoration-line-through">
+                         Rs.{product.price}
+                       </small>{" "}
+                       <small className="text-danger fw-semibold">({product.discount || 0}% OFF)</small>
+                     </div>
+             
+                    
+                   </Card.Body>
+                 </Card>
+                    </Col>
             ))
           ) : (
             <p>No matching products</p>
