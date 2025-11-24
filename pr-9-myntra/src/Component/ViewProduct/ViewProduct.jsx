@@ -26,7 +26,7 @@ const ViewProduct = () => {
             <Col md={2}>
             <Row className="flex-column">
               {product.image.map((img, index) => (
-              <Col md={12} key={index} className="mb-3" onMouseEnter={()=>handalimage(index)}>
+              <Col md={12} key={index} className="mb-3" onMouseEnter={()=>handalimage(index)} style={{cursor:'pointer'}}>
                 <Card className="shadow-sm border-0">
                   <Card.Img
                     src={img}
@@ -43,7 +43,7 @@ const ViewProduct = () => {
             ))}
             </Row>
             </Col>
-          <Col md={8} className="text-center mx-3 border border-2">
+          <Col md={8} className="text-center mx-3 ">
           <img src={product.image[ingindex]} alt="" width={"100%"} height={"500px"} style={{
     height: "500px",
     objectFit: "cover",
@@ -63,10 +63,10 @@ const ViewProduct = () => {
 
           {/* PRICE */}
           <div className="mt-3 mb-4">
-            <h4 className="fw-bold text-dark">₹  {Number(product.price) -
+            <h4 className="fw-bold text-dark">₹ {Math.floor(Number(product.price) -
                           (Number(product.price) *
                             Number(product.discount || 0)) /
-                            100}</h4>
+                            100)}</h4>
             <div>
               <span className="text-decoration-line-through text-muted">
                 MRP ₹{product.price}

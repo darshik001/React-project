@@ -97,6 +97,19 @@ const AddProduct = () => {
     }
   };
 
+  const getsubCatagory = () => {
+    switch (inputform.category) {
+      case "men":
+        return ["Jeans", "T-Shirt", "Kurta"];
+      case "women":
+        return ["Top", "Leggings", "Saree"];
+      case "kids":
+        return ["Shirt", "Shorts", "Frock"];
+      default:
+        return [];
+    }
+  };
+
   return (
     <Container
       fluid
@@ -159,10 +172,13 @@ const AddProduct = () => {
                           value={inputform.subcategory}
                           onChange={handleChange}
                         >
-                          <option value="">Select Subcategory</option>
-                          <option value="jeans">Jeans</option>
-                          <option value="t-shirt">T-Shirt</option>
-                          <option value="kurta">Kurta</option>
+                          <option value="">Select SubCatagory</option>
+
+                           {getsubCatagory().map((brand, idx) => (
+                            <option key={idx} value={brand}>
+                              {brand}
+                            </option>
+                          ))}
                         </Form.Select>
                         {inputErr.subcategoryErr && (
                           <Form.Text className="text-danger">

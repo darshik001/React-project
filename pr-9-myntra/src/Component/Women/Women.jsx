@@ -101,7 +101,7 @@ const Women = () => {
         <Row>
           {display.length > 0 ? (
             display.map((product, index) => (
-              <Col md={3} key={product.id || index}>
+              <Col md={3} key={product.id || index} style={{cursor:'pointer'}}>
                 <Card className="shadow-sm border-0 rounded-3 m-2" onClick={()=>handalView(product.id)}>
                   <div style={{ position: "relative" }}>
                     <Card.Img
@@ -156,7 +156,7 @@ const Women = () => {
               </Col>
             ))
           ) : (
-            <p className="p-4">No matching products</p>
+            <h2 className="p-4 text-center">Product Not Found</h2>
           )}
         </Row>
       </Container>

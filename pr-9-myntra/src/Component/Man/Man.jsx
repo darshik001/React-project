@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
 import { getallproduct } from "../Services/Action/AddProductAction";
@@ -28,6 +28,7 @@ const Man = () => {
   const [sortType, setSortType] = useState("");
 
   const filtered = manProducts.filter((p) => {
+
     const productSub = String(p.subcategory || "").toLowerCase();
     const matchesCategory =
       filters.category.length === 0 ||
@@ -63,68 +64,54 @@ const Man = () => {
         return sorted.sort((a, b) => Number(a.price) - Number(b.price));
 
       case "a":
-        return sorted.sort((a, b) => a.title.localeCompare(b.brand));
+        return sorted.sort((a, b) => a.title.localeCompare(b.title));
 
       case "z":
-        return sorted.sort((a, b) => b.title.localeCompare(a.brand));
+        return sorted.sort((a, b) => b.title.localeCompare(a.title));
 
       default:
-        return sorted; 
+        return sorted;
     }
   };
 
   const display = sortProducts(filtered);
-  const handalView = (id)=>{
+  const handalView = (id) => {
     navigat(`/product-info/${id}`)
   }
   return (
-    <div className="d-flex gap-3 mt-3">
+    <div className="d-flex gap-3 mt-3 ">
       <Filters category="men" filters={filters} setFilters={setFilters} />
 
-      <Container>
-       <Row className="justify-content-end">
-  <Col sm={3} className="text-end mb-3">
-    <Form.Select
-      value={sortType}
-      onChange={(e) => setSortType(e.target.value)}
-      className="mt-1"
-    >
-      <option value="">Recommended</option>
-      <option value="high">Price: High to Low</option>
-      <option value="low">Price: Low to High</option>
-      <option value="a">Brand: A - Z</option>
-      <option value="z">Brand: Z - A</option>
-    </Form.Select>
-  </Col>
-</Row>
+      <Container className="position-relative">
+        <Row className="justify-content-end">
+          <Col sm={3} className="text-end mb-3">
+            <Form.Select
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+              className="mt-1"
+            >
+              <option value="">Recommended</option>
+              <option value="high">Price: High to Low</option>
+              <option value="low">Price: Low to High</option>
+              <option value="a">Title: A - Z</option>
+              <option value="z">Title: Z - A</option>
+            </Form.Select>
+          </Col>
+        </Row>
 
         <Row>
           {display.length > 0 ? (
             display.map((product, index) => (
-              <Col md={3} key={product.id || index}>
-                <Card className="shadow-sm border-0 rounded-3 m-2" onClick={()=>handalView(product.id)}>
-                  <div style={{ position: "relative" }}>
+              <Col md={3} key={product.id || index} style={{ cursor: 'pointer' }}>
+                <Card className="shadow-sm border-0 rounded-3 m-2 " onClick={() => handalView(product.id)}>
+                  <div className="position-rilative" style={{ position: "relative" }}>
                     <Card.Img
                       variant="top"
                       src={product.image[0]}
                       style={{ height: "260px", objectFit: "cover" }}
                     />
 
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: "10px",
-                        left: "10px",
-                        background: "white",
-                        padding: "3px 8px",
-                        borderRadius: "6px",
-                        fontSize: "0.8rem",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        boxShadow: "0 0 5px rgba(0,0,0,0.15)",
-                      }}
-                    >
+                    <div className="d-flex  align-items-center gap-1  position-absolute bottom-0 start-0 translate-middle-y   bg-white p-1 px-2 ms-2 rounded" style={{fontSize: "0.8rem"}}>
                       <span>{product.rates?.rating || "-"}</span>
                       <AiFillStar size={14} color="green" />
                       <span>|</span>
@@ -142,7 +129,7 @@ const Man = () => {
                         {Number(product.price) -
                           (Number(product.price) *
                             Number(product.discount || 0)) /
-                            100}
+                          100}
                       </small>{" "}
                       <small className="text-muted text-decoration-line-through">
                         Rs.{product.price}
@@ -156,9 +143,19 @@ const Man = () => {
               </Col>
             ))
           ) : (
-            <p className="p-4">No matching products</p>
+            <h2 className="p-4 text-center">Product Not Found</h2>
           )}
         </Row>
+        <div className="">
+     <Row className="  justify-content-around position-absolute bottom-0 end-0 translate-middle-y">
+      <Col sm={6} className="">
+<Button variant="white">Filter</Button>
+</Col>
+<Col sm={6} className="">
+<Button variant="white">Sort</Button>
+</Col>
+     </Row>
+        </div>
       </Container>
     </div>
   );
