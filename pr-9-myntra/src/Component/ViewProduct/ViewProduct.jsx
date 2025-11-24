@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiTruck } from "react-icons/fi";
@@ -6,33 +6,50 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const ViewProduct = () => {
+  const [ingindex , setingindex] = useState(0)
     const {products} = useSelector((state)=>state)
     const {id} = useParams()
     const product = products.find((product)=> product.id == id)
+    console.log(product)
   if (!product) return <p className="p-5">Product Not Found</p>;
 
- 
+ const handalimage=(index)=>{
+  setingindex(index)
+ }
 
   return (
-    <Container className="py-4">
-      <Row>
+    <Container >
+      <Row className="mt-5">
         {/* ---------------- LEFT SIDE IMAGES ---------------- */}
         <Col md={6}>
-          <Row>
-            {product.image.map((img, index) => (
-              <Col md={12} key={index} className="mb-3">
+          <Row >
+            <Col md={2}>
+            <Row className="flex-column">
+              {product.image.map((img, index) => (
+              <Col md={12} key={index} className="mb-3" onMouseEnter={()=>handalimage(index)}>
                 <Card className="shadow-sm border-0">
                   <Card.Img
                     src={img}
                     style={{
-                      height: "500px",
-                      width: "100%",
+                      width: "100px",
+                      height:"100px",
                       objectFit: "cover",
+    objectPosition: "center"
+
                     }}
                   />
                 </Card>
               </Col>
             ))}
+            </Row>
+            </Col>
+          <Col md={8} className="text-center mx-3 border border-2">
+          <img src={product.image[ingindex]} alt="" width={"100%"} height={"500px"} style={{
+    height: "500px",
+    objectFit: "cover",
+    objectPosition: "center"
+  }}className="w-100" />
+          </Col>
           </Row>
         </Col>
 
@@ -46,7 +63,10 @@ const ViewProduct = () => {
 
           {/* PRICE */}
           <div className="mt-3 mb-4">
-            <h4 className="fw-bold text-dark">₹ {100}</h4>
+            <h4 className="fw-bold text-dark">₹  {Number(product.price) -
+                          (Number(product.price) *
+                            Number(product.discount || 0)) /
+                            100}</h4>
             <div>
               <span className="text-decoration-line-through text-muted">
                 MRP ₹{product.price}
@@ -61,10 +81,10 @@ const ViewProduct = () => {
           {/* SIZE SELECTOR */}
           <h6 className="fw-bold mt-4">SELECT SIZE</h6>
           <div className="d-flex gap-2 flex-wrap mb-4">
-            {["S", "M", "L", "XL"].map((s) => (
+            {["S", "M", "L", "XL","XXL"].map((s) => (
               <Button
                 key={s}
-                variant="outline-dark"
+                variant="outline-danger"
                 className="rounded-circle"
                 style={{ width: 50, height: 50 }}
               >
@@ -97,12 +117,22 @@ const ViewProduct = () => {
               DELIVERY OPTIONS <FiTruck className="ms-2" />
             </h6>
 
-            <Form className="mt-2">
-              <div className="d-flex gap-2">
-                <Form.Control placeholder="Enter pincode" />
-                <Button variant="dark">CHECK</Button>
-              </div>
-            </Form>
+           <div className="position-relative mt-2">
+  <Form.Control
+    placeholder="Enter pincode"
+    className="py-3"      
+  />
+  
+  <Button
+    variant=" "
+
+    className="position-absolute end-0  top-50 translate-middle-y text-danger "
+    style={{ height: "75%" }}
+  >
+    CHECK
+  </Button>
+</div>
+
 
             <small className="text-muted">
               Please enter PIN to check delivery time & Pay on Delivery

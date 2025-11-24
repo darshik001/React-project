@@ -6,7 +6,7 @@ import { getallproduct } from "../Services/Action/AddProductAction";
 import Filters from "../Filters/Filters";
 import { useNavigate } from "react-router-dom";
 
-const Women = () => {
+const Kids = () => {
   const { products } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigat = useNavigate()
@@ -14,8 +14,8 @@ const Women = () => {
     dispatch(getallproduct());
   }, [dispatch]);
 
-  const womenProducts = products.filter(
-    (p) => (p.category || "").toLowerCase() === "women"
+  const kidsProducts = products.filter(
+    (p) => (p.category || "").toLowerCase() === "kids"
   );
 
   const [filters, setFilters] = useState({
@@ -27,7 +27,7 @@ const Women = () => {
 
   const [sortType, setSortType] = useState("");
 
-  const filtered = womenProducts.filter((p) => {
+  const filtered = kidsProducts.filter((p) => {
     const productSub = String(p.subcategory || "").toLowerCase();
     const matchesCategory =
       filters.category.length === 0 ||
@@ -164,4 +164,4 @@ const Women = () => {
   );
 };
 
-export default Women;
+export default Kids;

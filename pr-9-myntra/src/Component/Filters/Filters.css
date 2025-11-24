@@ -18,3 +18,9 @@
 .custom-range::-moz-range-track {
   background: #ffc6d1 !important;
 }
+
+
+*{
+  object-position: center;
+  /* position: absolute; */
+}
