@@ -17,7 +17,7 @@ const Allproducts = () => {
 
           {products && products.length > 0 ? (
             products.map((product, index) => (
-              <Col md={3} key={product.id}>
+              <Col xs={6} md={3}  key={product.id}>
                 <Card className="shadow-sm border-0 rounded-3 m-2">
                   <div style={{ position: "relative" }}>
                     <Card.Img

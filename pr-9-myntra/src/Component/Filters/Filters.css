@@ -1,6 +1,7 @@
 .custom-checkbox .form-check-input:checked {
   background-color: #ff3f6c !important;
   border-color: #ff3f6c !important;
+  outline:#ff3f6c !important ;
 }
 
 .custom-range::-webkit-slider-thumb {

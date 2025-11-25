@@ -1,58 +1,128 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Form, Carousel } from "react-bootstrap";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiTruck } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const ViewProduct = () => {
-  const [ingindex , setingindex] = useState(0)
-    const {products} = useSelector((state)=>state)
-    const {id} = useParams()
-    const product = products.find((product)=> product.id == id)
-    console.log(product)
+  const [ingindex, setingindex] = useState(0);
+const [current, setCurrent] = useState(0);
+
+const { products } = useSelector((state) => state);
+const { id } = useParams();
+
+const product = products.find((product) => product.id == id);
+const sliderData = product.image;
+
   if (!product) return <p className="p-5">Product Not Found</p>;
 
- const handalimage=(index)=>{
-  setingindex(index)
- }
+  const handalimage = (index) => {
+    setingindex(index);
+  };
 
   return (
-    <Container >
-      <Row className="mt-5">
-        {/* ---------------- LEFT SIDE IMAGES ---------------- */}
-        <Col md={6}>
-          <Row >
-            <Col md={2}>
-            <Row className="flex-column">
-              {product.image.map((img, index) => (
-              <Col md={12} key={index} className="mb-3" onMouseEnter={()=>handalimage(index)} style={{cursor:'pointer'}}>
-                <Card className="shadow-sm border-0">
-                  <Card.Img
-                    src={img}
-                    style={{
-                      width: "100px",
-                      height:"100px",
-                      objectFit: "cover",
-    objectPosition: "center"
+    <Container fluid className="mt-4">
+      <Row className="mt-3">
 
-                    }}
-                  />
-                </Card>
-              </Col>
-            ))}
-            </Row>
+        {/* ---------------- LEFT SIDE IMAGES ---------------- */}
+        <Col md={6}  className="d-none d-md-block">
+          <Row>
+
+            {/* Small Thumbnails */}
+            <Col md={2}>
+              <Row className="flex-column">
+                {product.image.map((img, index) => (
+                  <Col
+                    md={12}
+                    key={index}
+                    className="mb-3"
+                    onMouseEnter={() => handalimage(index)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Card className="shadow-sm border-0">
+                      <Card.Img
+                        src={img}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
             </Col>
-          <Col md={8} className="text-center mx-3 ">
-          <img src={product.image[ingindex]} alt="" width={"100%"} height={"500px"} style={{
-    height: "500px",
-    objectFit: "cover",
-    objectPosition: "center"
-  }}className="w-100" />
-          </Col>
+
+            {/* Main Image */}
+            <Col md={8} className="text-center mx-3">
+              <img
+                src={product.image[ingindex]}
+                alt=""
+                className="w-100"
+                style={{
+                  height: "500px",
+                  width: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  borderRadius: "10px",
+                }}
+              />
+            </Col>
+
           </Row>
         </Col>
+    <Col xs={12} className="d-block d-md-none">
 
+  {/** Carousel State **/}
+  {/** Add these 2 states at top:
+      const [current, setCurrent] = useState(0);
+      const sliderData = product.image;
+  **/}
+
+  <Carousel
+    activeIndex={current}
+    onSelect={(selectedIndex) => setCurrent(selectedIndex)}
+    interval={3000}
+    pause={false}
+    controls={false}
+    indicators={false}
+  >
+    {product.image.map((img, index) => (
+      <Carousel.Item key={index}>
+        <img
+          src={img}
+          alt={`slide-${index}`}
+          className="d-block w-100"
+          style={{
+            height: "420px",
+            objectFit: "cover",
+            borderRadius: "10px"
+          }}
+        />
+      </Carousel.Item>
+    ))}
+  </Carousel>
+
+  {/* Small Dots */}
+  <div className="d-flex justify-content-center mt-3 gap-2">
+    {product.image.map((_, i) => (
+      <button
+        key={i}
+        type="button"
+        className={`btn btn-sm rounded-circle p-0 ${
+          i === current ? "btn-dark" : "btn-secondary"
+        }`}
+        style={{ width: "8px", height: "8px" }}
+        onClick={() => setCurrent(i)}
+      />
+    ))}
+  </div>
+
+</Col>
         {/* ---------------- RIGHT SIDE DETAILS ---------------- */}
         <Col md={6}>
           {/* BRAND */}
@@ -63,10 +133,14 @@ const ViewProduct = () => {
 
           {/* PRICE */}
           <div className="mt-3 mb-4">
-            <h4 className="fw-bold text-dark">₹ {Math.floor(Number(product.price) -
-                          (Number(product.price) *
-                            Number(product.discount || 0)) /
-                            100)}</h4>
+            <h4 className="fw-bold text-dark">
+              ₹{" "}
+              {Math.floor(
+                Number(product.price) -
+                  (Number(product.price) * Number(product.discount || 0)) / 100
+              )}
+            </h4>
+
             <div>
               <span className="text-decoration-line-through text-muted">
                 MRP ₹{product.price}
@@ -75,13 +149,14 @@ const ViewProduct = () => {
                 ({product.discount}% OFF)
               </span>
             </div>
+
             <small className="text-success">inclusive of all taxes</small>
           </div>
 
           {/* SIZE SELECTOR */}
           <h6 className="fw-bold mt-4">SELECT SIZE</h6>
           <div className="d-flex gap-2 flex-wrap mb-4">
-            {["S", "M", "L", "XL","XXL"].map((s) => (
+            {["S", "M", "L", "XL", "XXL"].map((s) => (
               <Button
                 key={s}
                 variant="outline-danger"
@@ -117,22 +192,17 @@ const ViewProduct = () => {
               DELIVERY OPTIONS <FiTruck className="ms-2" />
             </h6>
 
-           <div className="position-relative mt-2">
-  <Form.Control
-    placeholder="Enter pincode"
-    className="py-3"      
-  />
-  
-  <Button
-    variant=" "
+            <div className="position-relative mt-2">
+              <Form.Control placeholder="Enter pincode" className="py-3" />
 
-    className="position-absolute end-0  top-50 translate-middle-y text-danger "
-    style={{ height: "75%" }}
-  >
-    CHECK
-  </Button>
-</div>
-
+              <Button
+                variant=" "
+                className="position-absolute end-0 top-50 translate-middle-y text-danger"
+                style={{ height: "75%" }}
+              >
+                CHECK
+              </Button>
+            </div>
 
             <small className="text-muted">
               Please enter PIN to check delivery time & Pay on Delivery

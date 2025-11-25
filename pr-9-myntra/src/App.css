@@ -1,3 +1,8 @@
 .product-card{
   cursor: pointer !important;
 }
+
+.custom-checkbox .form-check-input:checked {
+  background-color: #ff3f6c !important;
+  border-color: #ff3f6c !important;
+}
