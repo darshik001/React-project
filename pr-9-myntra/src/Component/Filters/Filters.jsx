@@ -1,6 +1,6 @@
 // Filters.jsx
 import React, { useState } from "react";
-import { Form, Card } from "react-bootstrap";
+import { Form, Card, Row, Col, Button } from "react-bootstrap";
 import "./Filters.css";
 
 const Filters = ({ category, filters, setFilters }) => {
@@ -49,20 +49,24 @@ const Filters = ({ category, filters, setFilters }) => {
   };
 
   return (
-    <Card className="p-3 shadow-sm" style={{ width: "260px" }}>
+    <Card className=" p-3 shadow-sm w-100" >
+      <Row>
+      <Col md={12}>
       <div className="d-flex justify-content-between align-items-center">
         <h5 className="fw-bold mb-3">FILTERS</h5>
 
         {/* CLEAR BUTTON */}
-        <p
+        <Button variant="white"
           style={{ cursor: "pointer", color: "#ff3f6c" }}
           onClick={clearAll}
         >
           CLEAR ALL
-        </p>
+        </Button>
       </div>
+      </Col>
 
       {/* CATEGORY FILTER */}
+      <Col md={12}>
       <div className="mb-4">
         <h6 className="fw-bold text-uppercase">CATEGORIES</h6>
 
@@ -84,8 +88,10 @@ const Filters = ({ category, filters, setFilters }) => {
           />
         ))}
       </div>
+      </Col>
 
       {/* BRAND FILTER */}
+      <Col md={12}>
       <div className="mb-4">
         <h6 className="fw-bold text-uppercase">BRAND</h6>
 
@@ -109,8 +115,10 @@ const Filters = ({ category, filters, setFilters }) => {
           ))}
         </div>
       </div>
+      </Col>
 
       {/* PRICE RANGE */}
+     <Col md={12}>
       <div className="mb-4">
         <h6 className="fw-bold text-uppercase">PRICE</h6>
 
@@ -133,8 +141,10 @@ const Filters = ({ category, filters, setFilters }) => {
           <span>₹{filters.price}</span>
         </div>
       </div>
+     </Col>
 
       {/* DISCOUNT */}
+      <Col md={12}>
       <div className="mb-4">
         <h6 className="fw-bold text-uppercase">DISCOUNT RANGE</h6>
 
@@ -155,6 +165,8 @@ const Filters = ({ category, filters, setFilters }) => {
           />
         ))}
       </div>
+      </Col>
+      </Row>
     </Card>
   );
 };

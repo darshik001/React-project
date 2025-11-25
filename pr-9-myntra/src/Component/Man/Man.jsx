@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Offcanvas, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
 import { getallproduct } from "../Services/Action/AddProductAction";
 import Filters from "../Filters/Filters";
 import { useNavigate } from "react-router-dom";
+import { BsSliders } from "react-icons/bs";
+import { BiSort } from "react-icons/bi";
 
 const Man = () => {
   const { products } = useSelector((state) => state);
@@ -78,11 +80,24 @@ const Man = () => {
   const handalView = (id) => {
     navigat(`/product-info/${id}`)
   }
-  return (
-    <div className="d-flex gap-3 mt-3 ">
-      <Filters category="men" filters={filters} setFilters={setFilters} />
 
-      <Container className="position-relative">
+
+  // offcanvas 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  return (
+    <>
+    <Row className="m-0 mt-3">
+      <Col md={4} lg={3} xl={2} className="ps-0">
+      <div className="d-none d-md-block">
+      <Filters category="men" filters={filters} setFilters={setFilters} />
+      </div>
+</Col>
+      <Col md={8} lg={9} xl={10}>
+
+      <div className="position-relative">
         <Row className="justify-content-end">
           <Col sm={3} className="text-end mb-3">
             <Form.Select
@@ -99,10 +114,10 @@ const Man = () => {
           </Col>
         </Row>
 
-        <Row>
+        <Row className="mb-5">
           {display.length > 0 ? (
             display.map((product, index) => (
-              <Col md={3} key={product.id || index} style={{ cursor: 'pointer' }}>
+              <Col xs={6}  lg={4} xl={3}  key={product.id} style={{ cursor: 'pointer' }}>
                 <Card className="shadow-sm border-0 rounded-3 m-2 " onClick={() => handalView(product.id)}>
                   <div className="position-rilative" style={{ position: "relative" }}>
                     <Card.Img
@@ -146,18 +161,52 @@ const Man = () => {
             <h2 className="p-4 text-center">Product Not Found</h2>
           )}
         </Row>
-        <div className="">
-     <Row className="  justify-content-around position-absolute bottom-0 end-0 translate-middle-y">
-      <Col sm={6} className="">
-<Button variant="white">Filter</Button>
+
+
+    <Row 
+  className="d-md-none position-fixed bottom-0 start-50 translate-middle-x w-100 bg-white py-2 shadow-lg justify-content-center"
+  style={{ zIndex: 999 }}
+>
+
+  <Col xs={6}  className="text-center">
+  <Button variant="white" className="px-4 fw-semibold ">
+    <span className="me-2">
+
+    <BiSort/>
+    </span>
+    Sort
+  </Button>
+  </Col>
+  <Col xs={6}  className="text-center">
+  <Button variant="white" className="px-4 fw-semibold  gap-2" onClick={handleShow}>
+    <span className="me-2">
+      
+    <BsSliders/>
+    </span>
+    Filter
+  </Button>
+  </Col>
+
+ 
+</Row>
+
+      </div>
 </Col>
-<Col sm={6} className="">
-<Button variant="white">Sort</Button>
-</Col>
-     </Row>
-        </div>
-      </Container>
-    </div>
+
+    </Row>
+
+    <Offcanvas show={show} onHide={handleClose} className="d-md-none w-100 h-100"  placement="bottom" 
+ >
+      <Offcanvas.Body className="p-0">
+      <Filters category="men" filters={filters} setFilters={setFilters} />
+      </Offcanvas.Body>
+        <Offcanvas.Header >
+          <Button variant="white" className="mx-auto" onClick={handleClose}>CLOSE</Button>
+          <Button variant="white" className="mx-auto text-danger" onClick={handleClose}>APPLY</Button>
+        </Offcanvas.Header>
+       
+      </Offcanvas>
+    </>
   );
 };
 

@@ -12,11 +12,7 @@ import Allproducts from './AllProducts/Allproducts'
 const Home=()=> {
  const dispatch = useDispatch()
     const {products} = useSelector(state=>state)
-  console.log(products)
-  const brand  = products.map((product)=> product.brand)
-  const subcategory  = products.map((product)=> product.subcategory)
-  // console.log(brand)
-  // console.log(subcategory)
+  
  useEffect(()=>{
   dispatch(getallproduct())
  },[])
