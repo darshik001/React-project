@@ -38,32 +38,20 @@ const Slider5 = () => {
         </h2>
       </div>
 
-      <Carousel
-        activeIndex={current}
-        onSelect={(selectedIndex) => setCurrent(selectedIndex)}
-        interval={3000}
-        pause={false}
-        controls={false}
-        indicators={false}
-      >
+      <Carousel activeIndex={current} onSelect={(selectedIndex) => setCurrent(selectedIndex)} interval={3000} pause={false} controls={false} indicators={false} >
         {slides.map((slide, idx) => (
           <Carousel.Item key={idx}>
             <div className="d-flex justify-content-between">
               {slide.map((img, i) => (
                 <div key={i} className="flex-fill">
                   <a href="#">
-                    <img
-                      src={img}
-                      alt={`slide-${idx}-img-${i}`}
-                      className="img-fluid"
-                      style={{
-                        height: "fit-content",
-                        objectFit: "contain",
-                        transition: "transform 0.3s",
-                      }}
+                    <img src={img} alt={`slide-${idx}-img-${i}`} className="img-fluid" style={{
+                      height: "fit-content",
+                      objectFit: "contain",
+                      transition: "transform 0.3s",
+                    }}
                       onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-                      onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                    />
+                      onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} />
                   </a>
                 </div>
               ))}
@@ -74,13 +62,7 @@ const Slider5 = () => {
 
       <div className="d-flex justify-content-center mt-3 gap-2">
         {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`btn p-1 rounded-circle ${i === current ? "btn-dark" : "btn-secondary"}`}
-            style={{ width: "8px", height: "8px" }}
-            onClick={() => setCurrent(i)}
-          />
+          <button key={i} type="button" className={`btn p-1 rounded-circle ${i === current ? "btn-dark" : "btn-secondary"}`} style={{ width: "8px", height: "8px" }} onClick={() => setCurrent(i)} />
         ))}
       </div>
     </section>

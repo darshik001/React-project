@@ -19,25 +19,11 @@ const Slider1 = () => {
 
   return (
     <div>
-      <Carousel
-      
-        activeIndex={current}
-        onSelect={(selectedIndex) => setCurrent(selectedIndex)}
-        interval={3000}      
-        pause={false}        
-        controls={false}     
-        indicators={false}   
-        fade={false}
-      >
+      <Carousel activeIndex={current} onSelect={(selectedIndex) => setCurrent(selectedIndex)} interval={3000} pause={false} controls={false} indicators={false} fade={false}>
         {sliderData.map((item) => (
           <Carousel.Item key={item.id}>
             <a href={item.link}>
-              <img
-                src={item.img}
-                alt={`slide-${item.id}`}
-                className="d-block w-100"
-                style={{ objectFit: "cover" }}
-              />
+              <img src={item.img} alt={`slide-${item.id}`} className="d-block w-100" style={{ objectFit: "cover" }} />
             </a>
           </Carousel.Item>
         ))}
@@ -45,15 +31,8 @@ const Slider1 = () => {
 
       <div className="d-flex justify-content-center mt-3 gap-2">
         {sliderData.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`btn btn-sm rounded-circle p-0 ${
-              i === current ? "btn-dark" : "btn-secondary"
-            }`}
-            style={{ width: "8px", height: "8px" }}
-            onClick={() => setCurrent(i)}
-          />
+          <button key={i} type="button" className={`btn btn-sm rounded-circle p-0 ${i === current ? "btn-dark" : "btn-secondary"}`}
+            style={{ width: "8px", height: "8px" }} onClick={() => setCurrent(i)} />
         ))}
       </div>
     </div>

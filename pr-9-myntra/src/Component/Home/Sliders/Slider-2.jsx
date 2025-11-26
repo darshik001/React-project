@@ -38,30 +38,17 @@ const Slider2 = () => {
         </h2>
       </div>
 
-      <Carousel
-        activeIndex={currentSlide}
-        onSelect={(selectedIndex) => setCurrentSlide(selectedIndex)}
-        interval={3000}
-        controls={false}
-        indicators={false}
-        pause={false}
-      >
+      <Carousel activeIndex={currentSlide} onSelect={(selectedIndex) => setCurrentSlide(selectedIndex)} interval={3000} controls={false} indicators={false} pause={false} >
         {slides.map((slide, idx) => (
           <Carousel.Item key={idx}>
             <div className="d-flex justify-content-between">
               {slide.map((img, i) => (
                 <div key={i} className="flex-fill ">
-                  <img
-                    src={img}
-                    alt={`slide-${idx}-img-${i}`}
-                    className="img-fluid"
-                    style={{
-                      objectFit: "contain",
-                      transition: "transform 0.3s",
-                      height:"fit-content"
-                    }}
-                   
-                  />
+                  <img src={img} alt={`slide-${idx}-img-${i}`} className="img-fluid" style={{
+                    objectFit: "contain",
+                    transition: "transform 0.3s",
+                    height: "fit-content"
+                  }} />
                 </div>
               ))}
             </div>
@@ -71,13 +58,7 @@ const Slider2 = () => {
 
       <div className="d-flex justify-content-center mt-3 gap-2">
         {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`btn btn-sm rounded-circle p-0 ${i === currentSlide ? "btn-dark" : "btn-secondary"}`}
-            style={{ width: "8px", height: "8px" }}
-            onClick={() => setCurrentSlide(i)}
-          />
+          <button key={i} type="button" className={`btn btn-sm rounded-circle p-0 ${i === currentSlide ? "btn-dark" : "btn-secondary"}`} style={{ width: "8px", height: "8px" }} onClick={() => setCurrentSlide(i)} />
         ))}
       </div>
     </section>

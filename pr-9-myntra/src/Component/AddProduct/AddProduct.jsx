@@ -299,6 +299,7 @@ const AddProduct = () => {
                         value={inputform.rates.rating}
                         onChange={handleChange}
                         placeholder="Enter Rating (1-5)"
+                        max={5}
                       />
                       {inputErr.ratingErr && (
                         <Form.Text className="text-danger">{inputErr.ratingErr}</Form.Text>

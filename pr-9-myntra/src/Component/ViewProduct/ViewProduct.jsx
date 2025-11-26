@@ -7,13 +7,13 @@ import { useParams } from "react-router-dom";
 
 const ViewProduct = () => {
   const [ingindex, setingindex] = useState(0);
-const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0);
 
-const { products } = useSelector((state) => state);
-const { id } = useParams();
+  const { products } = useSelector((state) => state);
+  const { id } = useParams();
 
-const product = products.find((product) => product.id == id);
-const sliderData = product.image;
+  const product = products.find((product) => product.id == id);
+  const sliderData = product.image;
 
   if (!product) return <p className="p-5">Product Not Found</p>;
 
@@ -25,32 +25,21 @@ const sliderData = product.image;
     <Container fluid className="mt-4">
       <Row className="mt-3">
 
-        {/* ---------------- LEFT SIDE IMAGES ---------------- */}
-        <Col md={6}  className="d-none d-md-block">
+        <Col md={6} className="d-none d-md-block">
           <Row>
 
-            {/* Small Thumbnails */}
             <Col md={2}>
               <Row className="flex-column">
                 {product.image.map((img, index) => (
-                  <Col
-                    md={12}
-                    key={index}
-                    className="mb-3"
-                    onMouseEnter={() => handalimage(index)}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <Col md={12} key={index} className="mb-3" onMouseEnter={() => handalimage(index)} style={{ cursor: "pointer" }} >
                     <Card className="shadow-sm border-0">
-                      <Card.Img
-                        src={img}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          objectFit: "cover",
-                          objectPosition: "center",
-                          borderRadius: "8px",
-                        }}
-                      />
+                      <Card.Img src={img} style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        borderRadius: "8px",
+                      }} />
                     </Card>
                   </Col>
                 ))}
@@ -59,85 +48,52 @@ const sliderData = product.image;
 
             {/* Main Image */}
             <Col md={8} className="text-center mx-3">
-              <img
-                src={product.image[ingindex]}
-                alt=""
-                className="w-100"
-                style={{
-                  height: "500px",
-                  width: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                  borderRadius: "10px",
-                }}
-              />
+              <img src={product.image[ingindex]} alt="" className="w-100" style={{
+                height: "500px",
+                width: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+                borderRadius: "10px",
+              }} />
             </Col>
 
           </Row>
         </Col>
-    <Col xs={12} className="d-block d-md-none">
+        <Col xs={12} className="d-block d-md-none">
 
-  {/** Carousel State **/}
-  {/** Add these 2 states at top:
-      const [current, setCurrent] = useState(0);
-      const sliderData = product.image;
-  **/}
 
-  <Carousel
-    activeIndex={current}
-    onSelect={(selectedIndex) => setCurrent(selectedIndex)}
-    interval={3000}
-    pause={false}
-    controls={false}
-    indicators={false}
-  >
-    {product.image.map((img, index) => (
-      <Carousel.Item key={index}>
-        <img
-          src={img}
-          alt={`slide-${index}`}
-          className="d-block w-100"
-          style={{
-            height: "420px",
-            objectFit: "cover",
-            borderRadius: "10px"
-          }}
-        />
-      </Carousel.Item>
-    ))}
-  </Carousel>
 
-  {/* Small Dots */}
-  <div className="d-flex justify-content-center mt-3 gap-2">
-    {product.image.map((_, i) => (
-      <button
-        key={i}
-        type="button"
-        className={`btn btn-sm rounded-circle p-0 ${
-          i === current ? "btn-dark" : "btn-secondary"
-        }`}
-        style={{ width: "8px", height: "8px" }}
-        onClick={() => setCurrent(i)}
-      />
-    ))}
-  </div>
+          <Carousel activeIndex={current} onSelect={(selectedIndex) => setCurrent(selectedIndex)} interval={3000} pause={false} controls={false} indicators={false}>
+            {product.image.map((img, index) => (
+              <Carousel.Item key={index}>
+                <img src={img} alt={`slide-${index}`} className="d-block w-100" style={{
+                  height: "420px",
+                  objectFit: "cover",
+                  borderRadius: "10px"
+                }}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
 
-</Col>
-        {/* ---------------- RIGHT SIDE DETAILS ---------------- */}
+          <div className="d-flex justify-content-center mt-3 gap-2">
+            {product.image.map((_, i) => (
+              <button key={i} type="button" className={`btn btn-sm rounded-circle p-0 ${i === current ? "btn-dark" : "btn-secondary"}`} style={{ width: "8px", height: "8px" }} onClick={() => setCurrent(i)} />
+            ))}
+          </div>
+
+        </Col>
         <Col md={6}>
-          {/* BRAND */}
           <h3 className="fw-bold">{product.brand}</h3>
 
-          {/* TITLE */}
           <h5 className="text-muted">{product.title}</h5>
 
-          {/* PRICE */}
           <div className="mt-3 mb-4">
             <h4 className="fw-bold text-dark">
               ₹{" "}
               {Math.floor(
                 Number(product.price) -
-                  (Number(product.price) * Number(product.discount || 0)) / 100
+                (Number(product.price) * Number(product.discount || 0)) / 100
               )}
             </h4>
 
@@ -153,7 +109,6 @@ const sliderData = product.image;
             <small className="text-success">inclusive of all taxes</small>
           </div>
 
-          {/* SIZE SELECTOR */}
           <h6 className="fw-bold mt-4">SELECT SIZE</h6>
           <div className="d-flex gap-2 flex-wrap mb-4">
             {["S", "M", "L", "XL", "XXL"].map((s) => (
@@ -168,7 +123,6 @@ const sliderData = product.image;
             ))}
           </div>
 
-          {/* BUTTONS */}
           <div className="d-flex gap-3 mb-4">
             <Button
               variant="danger"
@@ -186,7 +140,6 @@ const sliderData = product.image;
             </Button>
           </div>
 
-          {/* DELIVERY OPTIONS */}
           <div className="mt-4">
             <h6 className="fw-bold">
               DELIVERY OPTIONS <FiTruck className="ms-2" />
@@ -212,7 +165,6 @@ const sliderData = product.image;
 
           <hr className="my-4" />
 
-          {/* EXTRA DETAILS */}
           <div>
             <h6 className="fw-bold">100% ORIGINAL PRODUCTS</h6>
             <p className="text-muted">

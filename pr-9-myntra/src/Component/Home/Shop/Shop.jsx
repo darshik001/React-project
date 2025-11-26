@@ -77,20 +77,13 @@ const Shop = () => {
       <Container fluid>
         <Row className="justify-content-center">
           {shopData.map((product) => (
-            <Col key={product.id} xs={12} sm={6} lg={2} className="text-center p-0">
-              <a href="#">
-                <img
-                  src={product.img}
-                  alt={`Product ${product.id}`}
-                  style={{
-                    width: "100%",
-                    height: "335px",
-                    objectFit: "cover",
-                    transition: "transform 0.3s",
-                  }}
-                  className="img-fluid"
-                />
-              </a>
+            <Col key={product.id} xs={12} sm={6} md={3} xl={2} className="text-center p-0 mb-2">
+              <img src={product.img} alt={`Product ${product.id}`} style={{
+                width: "100%",
+                height: "335px",
+                objectFit: "cover",
+              }}
+              />
             </Col>
           ))}
         </Row>
