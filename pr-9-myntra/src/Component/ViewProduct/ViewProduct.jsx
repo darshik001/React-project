@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Container, Row, Col, Card, Button, Form, Carousel } from "react-bootstrap";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiTruck } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { CiEdit } from "react-icons/ci";
+import { LiaTrashRestoreSolid } from "react-icons/lia";
+import { deleteproduct } from "../Services/Action/addProductAction";
 
 const ViewProduct = () => {
   const [ingindex, setingindex] = useState(0);
@@ -11,7 +14,8 @@ const ViewProduct = () => {
 
   const { products } = useSelector((state) => state);
   const { id } = useParams();
-
+  const dispatch = useDispatch()
+  const naviget = useNavigate()
   const product = products.find((product) => product.id == id);
   const sliderData = product.image;
 
@@ -20,7 +24,14 @@ const ViewProduct = () => {
   const handalimage = (index) => {
     setingindex(index);
   };
+const handalDelete = (id)=>{
+  dispatch(deleteproduct(id))
+  naviget('/')
+}
 
+const handalEdit = (id)=>{
+  naviget(`/edit-product/${id}`)
+}
   return (
     <Container fluid className="mt-4">
       <Row className="mt-3">
@@ -126,17 +137,18 @@ const ViewProduct = () => {
           <div className="d-flex gap-3 mb-4">
             <Button
               variant="danger"
-              className="px-4 py-2 d-flex align-items-center fw-bold"
+              className="px-4 py-2 d-flex align-items-center fw-bold" onClick={()=>handalDelete(product.id)}
             >
-              ADD TO BAG
+              <LiaTrashRestoreSolid size={20} className="me-2"/>
+              DELETE
             </Button>
 
             <Button
               variant="outline-dark"
-              className="px-4 py-2 d-flex align-items-center fw-bold"
+              className="px-4 py-2 d-flex align-items-center fw-bold" onClick={()=>handalEdit(product.id)}
             >
-              <AiOutlineHeart size={20} className="me-2" />
-              WISHLIST
+              <CiEdit size={20} className="me-2" />
+              EDIT
             </Button>
           </div>
 

@@ -28,7 +28,35 @@ export const AddProductRedux = (state = initialvalue, action) => {
             return{
                 ...state,
                 products:allproducts ||[]
-            }    
+            }
+        case "DELETE_PRODUCT":
+            const productall = getproductData()
+            let uproducts = productall.filter((product)=>product.id !==action.payload)
+            setProductData(uproducts)
+            return{
+                ...state,
+                products:uproducts
+            }     
+        case "EDIT_PRODUCT" :
+      let getproducts = getproductData() 
+            let findeproduct = getproducts.find((product)=>product.id === action.payload) 
+             
+      return{
+        ...state,
+        product:findeproduct
+      }
+
+      case "UPDATE_PRODUCT" :
+      let productData = getproductData()
+        const updatedProducts = productData.map((product) =>
+    product.id === action.payload.id ? action.payload  : product
+  );
+      setProductData(updatedProducts)
+     return{
+      ...state,
+      products:updatedProducts,
+      product:null
+     }       
         default:
             return state
     }
