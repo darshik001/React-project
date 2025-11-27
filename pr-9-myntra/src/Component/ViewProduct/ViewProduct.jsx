@@ -98,7 +98,7 @@ const handalEdit = (id)=>{
           <h3 className="fw-bold">{product.brand}</h3>
 
           <h5 className="text-muted">{product.title}</h5>
-
+           <p>{product.description}</p>
           <div className="mt-3 mb-4">
             <h4 className="fw-bold text-dark">
               ₹{" "}
