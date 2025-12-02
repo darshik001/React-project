@@ -36,7 +36,7 @@ function Header() {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto ms-3">
-              <Nav.Link as={Link} to="/man">MEN</Nav.Link>
+              <Nav.Link as={Link} to="/men">MEN</Nav.Link>
               <Nav.Link as={Link} to="/women">WOMEN</Nav.Link>
               <Nav.Link as={Link} to="/kids">KIDS</Nav.Link>
               <Nav.Link as={Link} to="/home">HOME</Nav.Link>
@@ -78,7 +78,7 @@ function Header() {
             <img src={offcanvas1} alt="" className="w-100" />
           </div>
           <Nav className="flex-column text-black">
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/man">MEN <span><FaChevronRight /></span></Nav.Link>
+            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/men">MEN <span><FaChevronRight /></span></Nav.Link>
             <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/women">WOMEN <span><FaChevronRight /></span></Nav.Link>
             <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/kids">KIDS <span><FaChevronRight /></span></Nav.Link>
             <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/home">HOME <span><FaChevronRight /></span></Nav.Link>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
+import { Form, Button, Row, Col, Container, Card, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addproduct, Editproduct, updateProduct } from "../Services/Action/AddProductAction";
-import generateUniqueId from "generate-unique-id";
+import {  editproductAsync } from "../Services/Action/AddProductAction";
 import { useNavigate, useParams } from "react-router-dom";
+import { updateProductAsync } from "../../../../../FRONTEND/React Js/Api-Rredux-App/src/Component/Service/Action/ProductAction";
 
 const EditProduct = () => {
-    const {product} = useSelector(state=>state)
+    const {product,isLoding,isUpdate} = useSelector(state=>state)
     const {id} = useParams()
   const dispatch = useDispatch();
   const navigat = useNavigate()
@@ -72,10 +72,24 @@ const EditProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-     dispatch(updateProduct(inputform))
-                setinputform(initialState) 
-                naviget('/')
+     dispatch(updateProductAsync(inputform))
+                
   };
+
+  useEffect(()=>{
+  if(isUpdate){
+    if(inputform.category =="men"){
+      setinputform(initialState) 
+      naviget('/men')
+    }else  if(inputform.category =="women"){
+      setinputform(initialState) 
+      naviget('/women')
+    } else  if(inputform.category =="kids"){
+      setinputform(initialState) 
+      naviget('/kids')
+    }
+  }
+  },[isUpdate])
 
   // Brand selection based on category
   const getBrandOptions = () => {
@@ -111,7 +125,7 @@ const EditProduct = () => {
       },[product])
 
       useEffect(()=>{
-       dispatch(Editproduct(id))
+       dispatch(editproductAsync(id))
       },[id])
   return (
     <Container
@@ -119,7 +133,7 @@ const EditProduct = () => {
       className="d-flex justify-content-center align-items-center py-5"
       style={{ backgroundColor: "#f5f5f7", minHeight: "100vh" }}
     >
-      <Row className="justify-content-center w-100">
+      {isLoding?<Spinner/>:<Row className="justify-content-center w-100">
         <Col md={8} lg={6}>
           <Card className="shadow-lg border-0 rounded-4">
             <Card.Body className="p-4">
@@ -358,6 +372,7 @@ const EditProduct = () => {
           </Card>
         </Col>
       </Row>
+      }
     </Container>
   );
 };

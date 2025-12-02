@@ -20,7 +20,7 @@ import { BiSort } from "react-icons/bi";
 import { FiLayers } from "react-icons/fi";
 import { CiHeart } from "react-icons/ci";
 
-const Kids = () => {
+const Men = () => {
   const [filters, setFilters] = useState({
     category: [],
     brand: [],
@@ -49,7 +49,7 @@ const Kids = () => {
   };
 
   useEffect(() => {
-    dispatch(getallproductAync("kids"));
+    dispatch(getallproductAync("men"));
   }, []);
 
   
@@ -113,7 +113,7 @@ const Kids = () => {
         (filterproduct.length>0?<Row className="m-0 mt-3">
           <Col md={4} lg={3} xl={2} className="ps-0">
             <div className="d-none d-md-block position-sticky top-0">
-              <Filters category="kids" filters={filters} setFilters={setFilters} />
+              <Filters category="men" filters={filters} setFilters={setFilters} />
             </div>
           </Col>
 
@@ -432,4 +432,4 @@ const Kids = () => {
   );
 };
 
-export default Kids;
+export default Men;

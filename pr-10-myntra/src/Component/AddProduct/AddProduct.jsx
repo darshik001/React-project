@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { addproduct } from "../Services/Action/AddProductAction";
+import React, { useEffect, useState } from "react";
+import { Form, Button, Row, Col, Container, Card, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import {  addproductAsync } from "../Services/Action/AddProductAction";
 import generateUniqueId from "generate-unique-id";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const navigat = useNavigate()
+  const {isLoding,isCreated,errMSG} = useSelector((state)=>state)
   const initialState = {
     title: "",
     category: "",
@@ -77,11 +78,25 @@ const AddProduct = () => {
           useLetters: false,
         });
 
-      dispatch(addproduct(inputform));
-      setinputform(initialState);
-      navigat('/')
+      dispatch(addproductAsync(inputform));
+      
     }
   };
+
+  useEffect(()=>{
+  if(isCreated){
+   if(inputform.category ==="man"){
+    setinputform(initialState)
+    navigat('/men')
+   }else if(inputform.category ==="women"){
+     setinputform(initialState)
+    navigat('/women')
+   } else{
+    setinputform(initialState)
+    navigat('/kids')
+   }
+  }
+  },[isCreated])
 
   // Brand selection based on category
   const getBrandOptions = () => {
@@ -116,7 +131,9 @@ const AddProduct = () => {
       className="d-flex justify-content-center align-items-center py-5"
       style={{ backgroundColor: "#f5f5f7", minHeight: "100vh" }}
     >
+    
       <Row className="justify-content-center w-100">
+      <h2 className="text-center mb-5">{errMSG?errMSG:""}</h2>
         <Col md={8} lg={6}>
           <Card className="shadow-lg border-0 rounded-4">
             <Card.Body className="p-4">
@@ -355,6 +372,7 @@ const AddProduct = () => {
           </Card>
         </Col>
       </Row>
+      
     </Container>
   );
 };

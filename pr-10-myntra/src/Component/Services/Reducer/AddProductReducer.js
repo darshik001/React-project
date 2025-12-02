@@ -2,9 +2,13 @@ import { getproductData, setProductData } from "../Storage/StorageData"
 
 const initialvalue = 
     {
-        products: getproductData(),
+        products: [],
+        filterproduct:[],
         product: null,
-        isLoding: false
+        isLoding: false,
+        isCreated:false,
+        isUpdate:false,
+        errMSG:""
     }
 
 
@@ -14,48 +18,52 @@ const initialvalue =
 export const AddProductRedux = (state = initialvalue, action) => {
 
     switch (action.type) {
+        case "LODING":
+            return{
+                ...state,
+                isLoding:true
+            }
+        case "ERROR":
+            return{
+                ...state,
+                errMSG:action.payload
+            }    
         case "ADD_PRODUCT":
-            let data = getproductData()
-            data.push(action.payload)
-            setProductData(data)
             return {
                 ...state,
-                products: data
+                isCreated:true,
+                errMSG:""
             }
 
         case "GET_PRODUCTS":
-            const allproducts = getproductData()
             return{
                 ...state,
-                products:allproducts ||[]
+                filterproduct:action.payload,
+                isCreated:false,
+                isLoding:false,
+                isUpdate:false,
             }
-        case "DELETE_PRODUCT":
-            const productall = getproductData()
-            let uproducts = productall.filter((product)=>product.id !==action.payload)
-            setProductData(uproducts)
-            return{
-                ...state,
-                products:uproducts
-            }     
-        case "EDIT_PRODUCT" :
-      let getproducts = getproductData() 
-            let findeproduct = getproducts.find((product)=>product.id === action.payload) 
-             
+        // case "DELETE_PRODUCT":
+        //     const productall = getproductData()
+        //     let uproducts = productall.filter((product)=>product.id !==action.payload)
+        //     setProductData(uproducts)
+        //     return{
+        //         ...state,
+        //         products:uproducts
+        //     }     
+        case "EDIT_PRODUCT" :       
       return{
         ...state,
-        product:findeproduct
+        product:action.payload,
+        isLoding:false
       }
 
       case "UPDATE_PRODUCT" :
-      let productData = getproductData()
-        const updatedProducts = productData.map((product) =>
-    product.id === action.payload.id ? action.payload  : product
-  );
-      setProductData(updatedProducts)
+      
      return{
       ...state,
-      products:updatedProducts,
-      product:null
+      product:null,
+      isUpdate:true
      }       
         default:
             return state

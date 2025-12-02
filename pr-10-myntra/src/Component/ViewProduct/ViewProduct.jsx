@@ -1,32 +1,40 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Card, Button, Form, Carousel } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Button, Form, Carousel, Spinner } from "react-bootstrap";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiTruck } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { LiaTrashRestoreSolid } from "react-icons/lia";
-import { deleteproduct } from "../Services/Action/addProductAction";
+import { deleteproductAsync, getallproductAync } from "../Services/Action/addProductAction";
 
 const ViewProduct = () => {
   const [ingindex, setingindex] = useState(0);
   const [current, setCurrent] = useState(0);
 
-  const { products } = useSelector((state) => state);
-  const { id } = useParams();
+  const { filterproduct,isLoding } = useSelector((state) => state);
+  const { id,catagory } = useParams();
   const dispatch = useDispatch()
   const naviget = useNavigate()
-  const product = products.find((product) => product.id == id);
-  const sliderData = product.image;
+  const product = filterproduct.find((product) => product.id == id);
 
+  useEffect(() => {
+      dispatch(getallproductAync(catagory));
+    }, []);
   if (!product) return <p className="p-5">Product Not Found</p>;
 
   const handalimage = (index) => {
     setingindex(index);
   };
 const handalDelete = (id)=>{
-  dispatch(deleteproduct(id))
-  naviget('/')
+  dispatch(deleteproductAsync(id))
+  if(product.category=="men"){
+    naviget('/men')
+  }else if(product.category=="women"){
+    naviget('/women')
+  } else{
+    naviget('/kids')
+  }
 }
 
 const handalEdit = (id)=>{
@@ -34,11 +42,9 @@ const handalEdit = (id)=>{
 }
   return (
     <Container fluid className="mt-4">
-      <Row className="mt-3">
-
+      {isLoding?<Spinner/>:<Row className="mt-3">
         <Col md={6} className="d-none d-md-block">
           <Row>
-
             <Col md={2}>
               <Row className="flex-column">
                 {product.image.map((img, index) => (
@@ -184,7 +190,7 @@ const handalEdit = (id)=>{
             </p>
           </div>
         </Col>
-      </Row>
+      </Row>}
     </Container>
   );
 };
