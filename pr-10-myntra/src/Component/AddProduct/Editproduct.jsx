@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Container, Card, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {  editproductAsync } from "../Services/Action/AddProductAction";
+import {  editproductAsync, updateProductAsync } from "../Services/Action/AddProductAction";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateProductAsync } from "../../../../../FRONTEND/React Js/Api-Rredux-App/src/Component/Service/Action/ProductAction";
 
 const EditProduct = () => {
     const {product,isLoding,isUpdate} = useSelector(state=>state)
     const {id} = useParams()
   const dispatch = useDispatch();
-  const navigat = useNavigate()
   const naviget = useNavigate()
   const initialState = {
     title: "",

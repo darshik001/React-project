@@ -27,10 +27,9 @@ export const Editproduct = (data)=>{
 }
 
 
-export const updateProduct = (data)=>{
+export const updateProduct = ()=>{
     return{
         type:"UPDATE_PRODUCT",
-        payload:data
     }
 }
 
@@ -107,5 +106,6 @@ export const editproductAsync = (id)=>{
 export const updateProductAsync = (data)=>{
     return async (dispatch)=>{
         let res = await axios.put(`http://localhost:3000/products/${data.id}`,data)
+        dispatch(updateProduct())
     }
 }
