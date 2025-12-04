@@ -1,0 +1,72 @@
+import { getproductData, setProductData } from "../Storage/StorageData"
+
+const initialvalue = 
+    {
+        products: [],
+        filterproduct:[],
+        product: null,
+        isLoding: false,
+        isCreated:false,
+        isUpdate:false,
+        isDeleted:false,
+        errMSG:""
+    }
+
+
+
+
+
+export const AddProductRedux = (state = initialvalue, action) => {
+
+    switch (action.type) {
+        case "LODING":
+            return{
+                ...state,
+                isLoding:true
+            }
+        case "ERROR":
+            return{
+                ...state,
+                errMSG:action.payload,
+            }    
+        case "ADD_PRODUCT":
+            return {
+                ...state,
+                isCreated:true,
+                errMSG:""
+            }
+
+        case "GET_PRODUCTS":
+            return{
+                ...state,
+                filterproduct:action.payload,
+                isCreated:false,
+                isLoding:false,
+                isUpdate:false,
+                isDeleted:false,
+                errMSG:""
+            }
+        case "DELETE_PRODUCT":
+            return{
+                ...state,
+                isDeleted:true
+            }    
+        case "EDIT_PRODUCT" :       
+      return{
+        ...state,
+        product:action.payload,
+        isLoding:false
+      }
+
+      case "UPDATE_PRODUCT" :
+      
+     return{
+      ...state,
+      product:null,
+      isUpdate:true,
+    
+     }       
+        default:
+            return state
+    }
+}
