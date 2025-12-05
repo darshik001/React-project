@@ -8,14 +8,21 @@ import ViewProduct from './Component/ViewProduct/ViewProduct'
 import Kids from './Component/Kids/Kids'
 import Footer from './Component/Footer/Footer'
 import EditProduct from './Component/AddProduct/Editproduct'
+import SignIn from './Component/authentication/SignIn'
+import SignUp from './Component/authentication/SignUp'
 
 function App() {
 
   return (
     <>
     <Header/>
+    
      <Routes>
       <Route path='/' element={<Home/>}/>
+    
+      <Route path='/signin' element={<SignIn/>}/> 
+      <Route path='/signup' element={<SignUp/>}/> 
+
       <Route path='/men' element={<Men/>}/>
       <Route path='/women' element={<Women/>}/>
       <Route path='/kids' element={<Kids/>}/>

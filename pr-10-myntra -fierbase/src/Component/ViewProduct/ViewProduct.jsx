@@ -12,7 +12,7 @@ const ViewProduct = () => {
   const [ingindex, setingindex] = useState(0);
   const [current, setCurrent] = useState(0);
 
-  const { filterproduct,isLoding,isDeleted } = useSelector((state) => state);
+  const { filterproduct,isLoding,isDeleted } = useSelector((state) => state.AddProductRedux);
   const { id,catagory } = useParams();
   const dispatch = useDispatch()
   const naviget = useNavigate()

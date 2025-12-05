@@ -6,9 +6,10 @@ import offcanvas2 from '../../assets/img/Header/offcanvas-2.png'
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css"
+import { useSelector } from "react-redux";
 function Header() {
   const [show, setShow] = useState(false);
-
+const  {user}= useSelector(state=>state.userReducer)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   useEffect(() => {
@@ -56,11 +57,14 @@ function Header() {
             </Nav>
           </Navbar.Collapse>
 
-          <div className="d-flex flex-end">
-            <Link to="#" className="text-decoration-none text-black d-flex flex-column align-items-center d-none d-md-flex">
+          <div className="d-flex flex-end align-items-center">
+            {user?
+            (<Link to="#" className="text-decoration-none text-black d-flex flex-column align-items-center d-none d-md-flex">
               <FaRegUser size={20} />
               <small>Profile</small>
-            </Link>
+            </Link>):
+            (<Nav.Link as={Link} to="/signin">SignIn</Nav.Link>)
+            }
 
             <Link to="#" className="text-decoration-none text-black d-flex flex-column align-items-center mx-4">
               <FaRegHeart size={20} />

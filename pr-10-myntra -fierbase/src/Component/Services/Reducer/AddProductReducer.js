@@ -1,6 +1,5 @@
-import { getproductData, setProductData } from "../Storage/StorageData"
 
-const initialvalue = 
+const productState = 
     {
         products: [],
         filterproduct:[],
@@ -16,7 +15,7 @@ const initialvalue =
 
 
 
-export const AddProductRedux = (state = initialvalue, action) => {
+export const AddProductRedux = (state = productState, action) => {
 
     switch (action.type) {
         case "LODING":

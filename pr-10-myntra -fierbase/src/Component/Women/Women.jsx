@@ -29,7 +29,7 @@ const Women = () => {
   });
 
   const [sortType, setSortType] = useState("");
-  const { filterproduct, isLoding, } = useSelector((state) => state);
+  const { filterproduct, isLoding, } = useSelector((state) => state.AddProductRedux);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();

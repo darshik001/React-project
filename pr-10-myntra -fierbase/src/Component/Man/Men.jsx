@@ -29,7 +29,7 @@ const Men = () => {
   });
 
   const [sortType, setSortType] = useState("");
-  const { filterproduct, isLoding,errMSG } = useSelector((state) => state);
+  const { filterproduct, isLoding,errMSG } = useSelector((state) => state.AddProductRedux);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -106,6 +106,7 @@ const Men = () => {
 
   return (
     <>
+    {errMSG? <h2>{errMSG}</h2>:""}
       {isLoding ? (
         <div className="d-flex justify-content-center my-5"><Spinner/></div>
       ) : (

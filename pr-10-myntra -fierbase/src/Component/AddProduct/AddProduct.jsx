@@ -127,7 +127,6 @@ const AddProduct = () => {
         return [];
     }
   };
-console.log(isLoding)
   return (
     <Container
     fluid
