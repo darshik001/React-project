@@ -1,15 +1,37 @@
-import { Navbar, Nav, Form, FormControl, Container, Offcanvas } from "react-bootstrap";
-import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch, FaChevronRight } from "react-icons/fa";
+import {
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Container,
+  Offcanvas,
+  Modal,
+  Button,
+} from "react-bootstrap";
+import {
+  FaRegUser,
+  FaRegHeart,
+  FaShoppingBag,
+  FaSearch,
+  FaChevronRight,
+} from "react-icons/fa";
 import Logo from "../../assets/img/Header/myntra-logo.webp";
-import offcanvas1 from '../../assets/img/Header/offcanvas-1.webp'
-import offcanvas2 from '../../assets/img/Header/offcanvas-2.png'
+import offcanvas1 from "../../assets/img/Header/offcanvas-1.webp";
+import offcanvas2 from "../../assets/img/Header/offcanvas-2.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./Header.css"
-import { useSelector } from "react-redux";
+import "./Header.css";
+import { useDispatch, useSelector } from "react-redux";
+import { userSingOutAsync } from "../Services/Action/userAction";
 function Header() {
+  const dispatch = useDispatch();
+  const [profielshow, setprofielShow] = useState(false);
+
+  const profielhandleClose = () => setprofielShow(false);
+  const profielhandleShow = () => setprofielShow(true);
+
   const [show, setShow] = useState(false);
-const  {user}= useSelector(state=>state.userReducer)
+  const { user } = useSelector((state) => state.userReducer);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   useEffect(() => {
@@ -22,12 +44,18 @@ const  {user}= useSelector(state=>state.userReducer)
     addEventListener("resize", handleResize);
     return () => removeEventListener("resize", handleResize);
   }, []);
+
+  const handalLogout = () => {
+    dispatch(userSingOutAsync());
+  };
   return (
     <>
       <Navbar expand="lg" className="py-3 shadow-sm">
         <Container>
-
-          <button className="navbar-toggler border-0 p-0 shadow-none" onClick={handleShow}>
+          <button
+            className="navbar-toggler border-0 p-0 shadow-none"
+            onClick={handleShow}
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
@@ -37,62 +65,193 @@ const  {user}= useSelector(state=>state.userReducer)
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto ms-3">
-              <Nav.Link as={Link} to="/men">MEN</Nav.Link>
-              <Nav.Link as={Link} to="/women">WOMEN</Nav.Link>
-              <Nav.Link as={Link} to="/kids">KIDS</Nav.Link>
-              <Nav.Link as={Link} to="/home">HOME</Nav.Link>
-              <Nav.Link as={Link} to="/beauty">BEAUTY</Nav.Link>
+              <Nav.Link as={Link} to="/men">
+                MEN
+              </Nav.Link>
+              <Nav.Link as={Link} to="/women">
+                WOMEN
+              </Nav.Link>
+              <Nav.Link as={Link} to="/kids">
+                KIDS
+              </Nav.Link>
+              <Nav.Link as={Link} to="/home">
+                HOME
+              </Nav.Link>
+              <Nav.Link as={Link} to="/beauty">
+                BEAUTY
+              </Nav.Link>
             </Nav>
 
             <Form className="d-flex align-items-center me-4">
               <div style={{ position: "relative" }}>
-                <FaSearch style={{ position: "absolute", top: "50%", left: "10px", transform: "translateY(-50%)", color: "gray", }} />
-                <FormControl placeholder="Search for products, brands and more" className="ps-5 header-search" style={{ width: "200px" }} />
+                <FaSearch
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "10px",
+                    transform: "translateY(-50%)",
+                    color: "gray",
+                  }}
+                />
+                <FormControl
+                  placeholder="Search for products, brands and more"
+                  className="ps-5 header-search"
+                  style={{ width: "200px" }}
+                />
               </div>
             </Form>
 
-            <Nav className="me-3">
-              <Nav.Link as={Link} to="/addproduct">ADD PRODUCT</Nav.Link>
-
-            </Nav>
+            {user ? (
+              <Nav className="me-3">
+                <Nav.Link as={Link} to="/addproduct">
+                  ADD PRODUCT
+                </Nav.Link>
+              </Nav>
+            ) : (
+              ""
+            )}
           </Navbar.Collapse>
 
           <div className="d-flex flex-end align-items-center">
-            {user?
-            (<Link to="#" className="text-decoration-none text-black d-flex flex-column align-items-center d-none d-md-flex">
-              <FaRegUser size={20} />
-              <small>Profile</small>
-            </Link>):
-            (<Nav.Link as={Link} to="/signin">SignIn</Nav.Link>)
-            }
-
-            <Link to="#" className="text-decoration-none text-black d-flex flex-column align-items-center mx-4">
+            {user ? (
+              <Link to="#" className="text-decoration-none">
+                {/* <FaRegUser size={20} /> */}
+                <Button
+                  variant="white"
+                  className="text-decoration-none text-black d-flex flex-column align-items-center d-none d-md-flex"
+                  onClick={profielhandleShow}
+                >
+                  <FaRegUser size={20} />
+                  <small>Profile</small>
+                </Button>
+              </Link>
+            ) : (
+              <Nav.Link as={Link} to="/signin">
+                SignIn
+              </Nav.Link>
+            )}
+            {/* //profiel */}
+            {user ? (
+              <Modal
+                className="w-100"
+                show={profielshow}
+                onHide={profielhandleClose}
+              >
+                <Modal.Title>
+                  <div className="d-flex justify-content-between align-items-center w-100 px-5 pt-5">
+                    <span>{user.displayName}</span>
+                    <span>
+                      <img
+                        src={user.photoURL}
+                        className=" rounded-circle border border-3 border-black"
+                        alt="Photo"
+                        height={"50px"}
+                      />
+                    </span>
+                  </div>
+                </Modal.Title>
+                <Modal.Body className="p-0">
+                  <div className="d-flex justify-content-between align-items-center w-100 px-5 mt-3">
+                    <span>Email:{user.email}</span>
+                    <Button
+                      variant="white"
+                      className="text-danger"
+                      onClick={handalLogout}
+                    >
+                      LogOut
+                    </Button>
+                  </div>
+                </Modal.Body>
+              </Modal>
+            ) : (
+              ""
+            )}
+            <Link
+              to="#"
+              className="text-decoration-none text-black d-flex flex-column align-items-center mx-4"
+            >
               <FaRegHeart size={20} />
               <small>Wishlist</small>
             </Link>
-
           </div>
         </Container>
       </Navbar>
 
       <Offcanvas className="header-offcanvas" show={show} onHide={handleClose}>
-
         <Offcanvas.Body className="p-0 ">
           <div className="w-100 border-5">
             <img src={offcanvas1} alt="" className="w-100" />
           </div>
           <Nav className="flex-column text-black">
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/men">MEN <span><FaChevronRight /></span></Nav.Link>
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/women">WOMEN <span><FaChevronRight /></span></Nav.Link>
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/kids">KIDS <span><FaChevronRight /></span></Nav.Link>
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/home">HOME <span><FaChevronRight /></span></Nav.Link>
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/beauty">BEAUTY<span><FaChevronRight /></span></Nav.Link>
-
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/men"
+            >
+              MEN{" "}
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/women"
+            >
+              WOMEN{" "}
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/kids"
+            >
+              KIDS{" "}
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/home"
+            >
+              HOME{" "}
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/beauty"
+            >
+              BEAUTY
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
           </Nav>
           <hr />
           <Nav className="flex-column text-black">
-
-            <Nav.Link className="d-flex justify-content-between text-black " onClick={handleClose} as={Link} to="/addproduct">ADD PRODUCT <span><FaChevronRight /></span></Nav.Link>
+            <Nav.Link
+              className="d-flex justify-content-between text-black "
+              onClick={handleClose}
+              as={Link}
+              to="/addproduct"
+            >
+              ADD PRODUCT{" "}
+              <span>
+                <FaChevronRight />
+              </span>
+            </Nav.Link>
           </Nav>
 
           <div className="w-100 border-5  offcanvas-img-2 mt-5">

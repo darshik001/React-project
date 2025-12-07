@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth"
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { auth } from "../../../../fierbase.config"
 import { MdExploreOff } from "react-icons/md"
 
@@ -23,6 +23,11 @@ const userSignin = (user)=>{
    }
 }
 
+const SingOut = ()=>{
+    return{
+        type:"SIGNOUT"
+    }
+}
 
 
 export const userSignUpAsync = (data)=>{
@@ -64,5 +69,12 @@ export const userSignInGoogleAsync = ()=>{
         } catch(error){
       console.log(error)
        } 
+    }
+}
+
+export const userSingOutAsync = ()=>{
+    return async (dispatch) =>{
+        await signOut(auth)
+        dispatch(SingOut())
     }
 }

@@ -27,6 +27,13 @@
           user:action.payload,
           isLoding:false,
         }  
+
+      case "SIGNOUT":
+        localStorage.removeItem('user')
+        return{
+          ...state,
+          user:null
+        }  
     
       default:
         return{

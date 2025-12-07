@@ -46,7 +46,7 @@ const Loding = () => {
     }
 }
 
-const errormsg = (data) => {
+export const errormsg = (data) => {
     return {
         type: "ERROR",
         payload: data
@@ -110,7 +110,6 @@ export const editproductAsync = (id) => {
         dispatch(Loding())
         try {
             let res = await getDoc(doc(db, "products", id))
-            console.log("respons", res.data())
             dispatch(Editproduct(res.data()))
         } catch (error) {
 

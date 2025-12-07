@@ -196,7 +196,7 @@ const Men = () => {
                                     className="d-block w-100 position-relative"
                                     style={{
                                       height: "240px",
-                                      objectFit: "cover",
+                                      objectFit: "fill",
                                       borderRadius: "10px",
                                     }}
                                   />
