@@ -30,7 +30,6 @@ const SignIn = () => {
   const dispatch = useDispatch()
   const neviget = useNavigate()
   const {user} = useSelector(state=>state.userReducer)
-  console.log(user)
   const handalChange = (e)=>{
     const {name,value} = e.target 
     setinputForm({
@@ -49,7 +48,6 @@ const SignIn = () => {
 
   useEffect(()=>{
    if(user){
-    console.log(user)
     setinputForm(inputFromState)
     neviget('/')
    }

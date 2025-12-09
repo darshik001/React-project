@@ -24,7 +24,7 @@ import {
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
-import { userSignUpAsync } from "../Services/Action/userAction";
+import { userSignInGoogleAsync, userSignUpAsync } from "../Services/Action/userAction";
 
 const SignUp = () => {
   const inputFromstate = {
@@ -40,7 +40,7 @@ const SignUp = () => {
 
   const dispatch = useDispatch()
   const neviget = useNavigate()
-  const {isCreated}  = useSelector(state=>state.userReducer)
+  const {isCreated,user}  = useSelector(state=>state.userReducer)
 
 
   const handleChange = (e) => {
@@ -93,10 +93,15 @@ const SignUp = () => {
      neviget('/signin')
    }
   },[isCreated])
-
+ useEffect(()=>{
+   if(user){
+    setinputForm(inputForm)
+    neviget('/')
+   }
+  },[user])
 
   const handleGoogleSignUp = () => {
-    console.log("Google sign up clicked");
+    dispatch(userSignInGoogleAsync())
   };
 
   return (
@@ -236,10 +241,7 @@ const SignUp = () => {
                 <div className="text-center pt-3 border-top">
                   <p className="text-muted mb-0">
                     Already have an account?{" "}
-                    <Link
-                      to="/signin"
-                      className="text-decoration-none fw-medium text-primary"
-                    >
+                    <Link to="/signin" className="text-decoration-none fw-medium text-primary">
                       Sign in here
                     </Link>
                   </p>

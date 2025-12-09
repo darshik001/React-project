@@ -238,7 +238,7 @@ const Women = () => {
                         <Card.Body>
                           {hoverIndex !== index && (
                             <Card.Title className="fw-bold mb-0">
-                              {product.brand}
+                              {product.title}
                             </Card.Title>
                           )}
 
@@ -257,7 +257,7 @@ const Women = () => {
 
                           {hoverIndex !== index && (
                             <Card.Text className="text-muted my-1">
-                              {product.title}
+                              {product.brand}
                             </Card.Text>
                           )}
 

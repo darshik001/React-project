@@ -20,7 +20,7 @@ import { FiLayers } from "react-icons/fi";
 import { CiHeart } from "react-icons/ci";
 import { getallproductAync } from "../Services/Action/addProductAction";
 
-const Kids = () => {
+const Men = () => {
   const [filters, setFilters] = useState({
     category: [],
     brand: [],
@@ -29,10 +29,7 @@ const Kids = () => {
   });
 
   const [sortType, setSortType] = useState("");
-  const { filterproduct, isLoding } = useSelector(
-    (state) => state.AddProductRedux
-  );
-
+  const { filterproduct, isLoding,errMSG } = useSelector((state) => state.AddProductRedux);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -51,8 +48,10 @@ const Kids = () => {
   };
 
   useEffect(() => {
-    dispatch(getallproductAync("kids"));
+    dispatch(getallproductAync("men"));
   }, []);
+
+  
 
   const filtered = filterproduct.filter((p) => {
     const productSub = String(p.subcategory || "").toLowerCase();
@@ -70,7 +69,12 @@ const Kids = () => {
     const prodPrice = Number(p.price || 0);
     const matchesPrice = prodPrice <= filters.price;
 
-    return matchesCategory && matchesBrand && matchesDiscount && matchesPrice;
+    return (
+      matchesCategory &&
+      matchesBrand &&
+      matchesDiscount &&
+      matchesPrice
+    );
   });
 
   const sortProducts = (arr) => {
@@ -92,29 +96,24 @@ const Kids = () => {
   const display = sortProducts(filtered);
   // PAGINATION CALCULATION
   const totalPages = Math.ceil(display.length / itemsPerPage); // 3
-  const lastIndex = currentPage * itemsPerPage; //18  36
+  const lastIndex = currentPage * itemsPerPage;  //18  36
   const firstIndex = lastIndex - itemsPerPage; //0  18
-  const currentItems = display.slice(firstIndex, lastIndex); //0-18 //18-36
+  const currentItems = display.slice(firstIndex, lastIndex);  //0-18 //18-36
 
-  const handleView = (id, catagory) => {
+  const handleView = (id,catagory) => {
     navigate(`/product-info/${id}/${catagory}`);
   };
 
   return (
     <>
+    {errMSG? <h2>{errMSG}</h2>:""}
       {isLoding ? (
-        <div className="d-flex justify-content-center my-5">
-          <Spinner />
-        </div>
-      ) : filterproduct.length > 0 ? (
-        <Row className="m-0 mt-3">
+        <div className="d-flex justify-content-center my-5"><Spinner/></div>
+      ) : (
+        (filterproduct.length>0?<Row className="m-0 mt-3">
           <Col md={4} lg={3} xl={2} className="ps-0">
             <div className="d-none d-md-block position-sticky top-0">
-              <Filters
-                category="kids"
-                filters={filters}
-                setFilters={setFilters}
-              />
+              <Filters category="men" filters={filters} setFilters={setFilters} />
             </div>
           </Col>
 
@@ -156,7 +155,7 @@ const Kids = () => {
                     >
                       <Card
                         className="shadow-sm border-0 rounded-3 m-2"
-                        onClick={() => handleView(product.id, product.category)}
+                        onClick={() => handleView(product.id,product.category)}
                       >
                         {hoverIndex !== index && (
                           <div className="position-relative">
@@ -197,7 +196,7 @@ const Kids = () => {
                                     className="d-block w-100 position-relative"
                                     style={{
                                       height: "240px",
-                                      objectFit: "cover",
+                                      objectFit: "fill",
                                       borderRadius: "10px",
                                     }}
                                   />
@@ -238,7 +237,7 @@ const Kids = () => {
                         <Card.Body>
                           {hoverIndex !== index && (
                             <Card.Title className="fw-bold mb-0">
-                              {product.brand}
+                              {product.title}
                             </Card.Title>
                           )}
 
@@ -257,7 +256,7 @@ const Kids = () => {
 
                           {hoverIndex !== index && (
                             <Card.Text className="text-muted my-1">
-                              {product.title}
+                              {product.brand}
                             </Card.Text>
                           )}
 
@@ -321,41 +320,32 @@ const Kids = () => {
             </div>
           </Col>
           {/* PAGINATION */}
-          <div className="d-flex justify-content-center my-4">
-            <Pagination>
-              <Pagination.Prev
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => p - 1)}
-              />
-
-              {[...Array(totalPages)].map((_, i) => (
-                <Pagination.Item
-                  key={i + 1}
-                  active={currentPage === i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
-                >
-                  {i + 1}
-                </Pagination.Item>
-              ))}
-
-              <Pagination.Next
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => p + 1)}
-              />
-            </Pagination>
-          </div>
-        </Row>
-      ) : (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: "100vh" }}
-        >
-          <img
-            className=""
-            src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-illustration-svg-download-png-6430781.png"
-            alt=""
+      <div className="d-flex justify-content-center my-4">
+        <Pagination>
+          <Pagination.Prev
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
           />
-        </div>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <Pagination.Item
+              key={i + 1}
+              active={currentPage === i + 1}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+
+          <Pagination.Next
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          />
+        </Pagination>
+      </div>
+        </Row>:(<div className="d-flex justify-content-center align-items-center" style={{height:"100vh"}}>
+          <img className="" src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-illustration-svg-download-png-6430781.png" alt="" />
+          </div>))
       )}
 
       {/* FILTER OFFCANVAS */}
@@ -436,8 +426,10 @@ const Kids = () => {
           />
         </Offcanvas.Body>
       </Offcanvas>
+
+      
     </>
   );
 };
 
-export default Kids;
+export default Men;

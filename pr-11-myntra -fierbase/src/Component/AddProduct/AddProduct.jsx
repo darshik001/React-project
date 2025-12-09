@@ -68,7 +68,6 @@ const AddProduct = () => {
       image: [...inputform.image, ...urls],
     });
 
-    console.log(inputform);
   };
   const handleErrors = () => {
     const errors = {};
