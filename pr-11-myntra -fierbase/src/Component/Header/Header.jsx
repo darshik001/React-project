@@ -18,13 +18,14 @@ import {
 import Logo from "../../assets/img/Header/myntra-logo.webp";
 import offcanvas1 from "../../assets/img/Header/offcanvas-1.webp";
 import offcanvas2 from "../../assets/img/Header/offcanvas-2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userSingOutAsync } from "../Services/Action/userAction";
 function Header() {
   const dispatch = useDispatch();
+  const naviget = useNavigate()
   const [profielshow, setprofielShow] = useState(false);
 
   const profielhandleClose = () => setprofielShow(false);
@@ -47,6 +48,7 @@ function Header() {
 
   const handalLogout = () => {
     dispatch(userSingOutAsync());
+     naviget('/signin')
   };
   return (
     <>
@@ -132,77 +134,62 @@ function Header() {
             )}
             {/* //profiel */}
             {user ? (
-             <Modal
-  className="profile-modal"
-  show={profielshow}
-  onHide={profielhandleClose}
-  centered
->
-  <Modal.Header  className="border-0 pb-0">
-    <Modal.Title className="w-100">
-      <div className="d-flex justify-content-between align-items-center">
-        <div>
-          <h4 className="mb-1 fw-bold">{user.displayName}</h4>
-          <p className="text-muted small mb-0">Profile Information</p>
-        </div>
-        <div className="position-relative">
-          <img
-            src={user.photoURL}
-            className="profile-avatar rounded-circle border border-4 border-primary shadow"
-            alt="Profile"
-            width="80"
-            height="80"
-          />
-          <span className="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle p-1"></span>
-        </div>
-      </div>
-    </Modal.Title>
-  </Modal.Header>
-  
-  <Modal.Body className="pt-4">
-    <div className="profile-info-section mb-4">
-      <h6 className="text-uppercase text-muted mb-3">Account Details</h6>
-      
-      <div className="info-item d-flex justify-content-between align-items-center py-3 border-bottom">
-        <div className="d-flex align-items-center">
-          <span className="material-icons-outlined text-primary me-3">email</span>
+              <Modal
+    className="profile-modal"
+    show={profielshow}
+    onHide={profielhandleClose}
+    centered
+  >
+    <Modal.Header className="border-0 pb-0">
+      <Modal.Title className="w-100">
+        <div className="d-flex justify-content-between align-items-center">
           <div>
-            <p className="mb-0 fw-medium">Email Address</p>
-            <p className="text-muted small mb-0">Your primary email</p>
+            <h4 className="mb-1 fw-bold">{user.displayName || "User"}</h4>
+            <p className="text-muted small mb-0">Profile Information</p>
+          </div>
+          <div className="position-relative">
+            <img
+              src={user.photoURL || "/default-avatar.png"} // fallback image
+              className="profile-avatar rounded-circle border border-4 border-primary shadow"
+              alt="Profile"
+              width="80"
+              height="80"
+            />
           </div>
         </div>
-        <span className="fw-medium">{user.email}</span>
-      </div>
-      
-      <div className="info-item d-flex justify-content-between align-items-center py-3 border-bottom">
-        <div className="d-flex align-items-center">
-          <span className="material-icons-outlined text-primary me-3">person</span>
-          <div>
-            <p className="mb-0 fw-medium">Account Status</p>
-            <p className="text-muted small mb-0">Active since {new Date(user.metadata.creationTime).toLocaleDateString()}</p>
+      </Modal.Title>
+    </Modal.Header>
+
+    <Modal.Body className="pt-4">
+      <div className="profile-info-section mb-4">
+        <h6 className="text-uppercase text-muted mb-3">Account Details</h6>
+
+        <div className="info-item d-flex justify-content-between align-items-center py-3 border-bottom">
+          <div className="d-flex align-items-center">
+            <span className="material-icons-outlined text-primary me-3">email</span>
+            <div>
+              <p className="mb-0 fw-medium">Email Address</p>
+              <p className="text-muted small mb-0">Your primary email</p>
+            </div>
           </div>
+          <span className="fw-medium">{user.email}</span>
         </div>
-        <span className="badge bg-success rounded-pill">Active</span>
       </div>
-    </div>
-    
-   
-    
-    <div className="logout-section border-top pt-4">
-      <Button
-        variant="danger"
-        className="w-100 d-flex align-items-center justify-content-center py-2"
-        onClick={handalLogout}
-      >
-        <span className="material-icons-outlined me-2">Log Out</span>
-        
-      </Button>
-      <p className="text-muted small text-center mt-2">
-        You will be redirected to the login page
-      </p>
-    </div>
-  </Modal.Body>
-</Modal>
+
+      <div className="logout-section border-top pt-4">
+        <Button
+          variant="danger"
+          className="w-100 d-flex align-items-center justify-content-center py-2"
+          onClick={handalLogout}
+        >
+          <span className="material-icons-outlined me-2">Log Out</span>
+        </Button>
+        <p className="text-muted small text-center mt-2">
+          You will be redirected to the login page
+        </p>
+      </div>
+    </Modal.Body>
+  </Modal>
             ) : (
               ""
             )}
